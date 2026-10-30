@@ -45,12 +45,15 @@ export const aboutFacts = [
   { label: "Studied", value: "B.Tech, Computer Science" },
 ];
 
-export const roles = [
-  { name: "Full-stack developer, ANSCER Robotics", year: "2023–now" },
-  { name: "Web developer intern, ANSCER Robotics", year: "2023" },
-];
-
-export const study = [{ name: "B.Tech CSE, SATI Vidisha", year: "2022" }];
+export const career = {
+  city: "Bangalore",
+  company: "ANSCER Robotics",
+  roles: [
+    { dates: "Apr 2026 – now", title: "Full Stack Developer II" },
+    { dates: "Jul 2023 – Apr 2026", title: "Web Developer" },
+    { dates: "Mar 2023 – Jul 2023", title: "Web Developer Intern" },
+  ],
+};
 
 export const stack = [
   {
