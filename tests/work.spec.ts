@@ -4,6 +4,7 @@ const CASE_STUDIES = ["/work/fleet-app", "/work/robot-app"];
 const NEXT_LINK = /Next case study/u;
 const FLEET_URL = /\/work\/fleet-app$/u;
 const WEBGL_NOTE = /WebGL/u;
+const ABOUT_URL = /\/#about$/u;
 
 function collectErrors(page: Page) {
   const errors: string[] = [];
@@ -33,11 +34,16 @@ for (const path of CASE_STUDIES) {
   }
 }
 
-test("home panels link to their case studies", async ({ page }) => {
+test("home panels link to their case studies three ways", async ({ page }) => {
   await page.goto("/");
-  const links = page.getByRole("link", { name: "Read the case study" });
-  await expect(links).toHaveCount(2);
-  await links.first().click();
+  await expect(page.locator('a[href="/work/fleet-app"]')).toHaveCount(3);
+  await expect(page.locator('a[href="/work/robot-app"]')).toHaveCount(3);
+  await expect(
+    page.getByRole("link", { exact: true, name: "Fleet app" })
+  ).toHaveAttribute("href", "/work/fleet-app");
+  await page
+    .getByRole("link", { name: "Read the fleet app case study" })
+    .click();
   await expect(page).toHaveURL(FLEET_URL);
 });
 
@@ -60,4 +66,14 @@ test("3D demo mounts and switches camera modes", async ({ page }) => {
   await demo.getByRole("button", { name: "Free" }).click();
   await page.waitForTimeout(500);
   expect(errors.filter((error) => !error.includes("WebGL"))).toEqual([]);
+});
+
+test("footer links from a case study reach the home sections", async ({
+  page,
+}) => {
+  await page.goto("/work/fleet-app");
+  const footer = page.getByRole("navigation", { name: "Footer" });
+  await footer.getByRole("link", { name: "About" }).click();
+  await expect(page).toHaveURL(ABOUT_URL);
+  await expect(page.locator("#about")).toBeInViewport();
 });

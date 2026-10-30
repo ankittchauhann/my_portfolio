@@ -87,48 +87,78 @@ const panels = [
     Work
   </h2>
   <div class="mt-12 grid gap-20 lg:mt-16 lg:gap-28">
-    {panels.map((panel) => (
-      <article
-        aria-labelledby={`${panel.id}-title`}
-        class="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-12 lg:items-center lg:gap-x-6"
-      >
-        <div
-          class="bg-surface flex justify-center px-4 py-10 sm:px-8 lg:order-2 lg:col-span-7 lg:px-12 lg:py-16"
-          data-reveal
+    {panels.map((panel) => {
+      const slug = caseStudyFor[panel.id];
+      const href = slug && caseStudies.has(slug) ? `/work/${slug}` : null;
+      return (
+        <article
+          aria-labelledby={`${panel.id}-title`}
+          class="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-12 lg:items-center lg:gap-x-6"
         >
-          <panel.fragment />
-        </div>
-
-        <div class="lg:order-1 lg:col-span-5" data-reveal>
-          <div class="text-ink-muted text-small flex justify-between gap-4 tabular-nums">
-            <span>{panel.years}</span>
-            <span>{panel.fact}</span>
-          </div>
-          <h3
-            class="font-heading text-ink text-lead mt-3 uppercase"
-            id={`${panel.id}-title`}
-          >
-            {panel.title}
-          </h3>
-          <p class="text-body text-ink mt-4 max-w-[52ch]">{panel.summary}</p>
-          {caseStudies.has(caseStudyFor[panel.id] ?? "") && (
+          {href ? (
             <a
-              class="min-h-tap text-ink text-small hover:text-bronze decoration-bronze mt-5 inline-flex items-center underline underline-offset-4 transition-colors"
-              href={`/work/${caseStudyFor[panel.id]}`}
+              aria-label={`${panel.title} case study`}
+              class="group/stage bg-surface relative flex justify-center px-4 pt-10 pb-20 sm:px-8 lg:order-2 lg:col-span-7 lg:px-12 lg:py-16"
+              data-reveal
+              href={href}
+              tabindex="-1"
             >
-              Read the case study
-            </a>
-          )}
-          <dl class="mt-6 grid gap-3">
-            {panel.built.map((item) => (
-              <div class="grid grid-cols-[6.5rem_1fr] gap-4">
-                <dt class="text-ink-muted text-small">{item.label}</dt>
-                <dd class="text-ink text-small">{item.value}</dd>
+              <div class="flex w-full justify-center transition-transform duration-300 group-hover/stage:scale-[1.015]">
+                <panel.fragment />
               </div>
-            ))}
-          </dl>
-        </div>
-      </article>
-    ))}
+              <span class="bg-ground text-ink text-small absolute right-3 bottom-3 px-3 py-2 transition-[opacity,transform] duration-200 lg:translate-y-1 lg:opacity-0 lg:group-hover/stage:translate-y-0 lg:group-hover/stage:opacity-100">
+                Read the case study
+              </span>
+            </a>
+          ) : (
+            <div
+              class="bg-surface flex justify-center px-4 py-10 sm:px-8 lg:order-2 lg:col-span-7 lg:px-12 lg:py-16"
+              data-reveal
+            >
+              <panel.fragment />
+            </div>
+          )}
+
+          <div class="lg:order-1 lg:col-span-5" data-reveal>
+            <div class="text-ink-muted text-small flex justify-between gap-4 tabular-nums">
+              <span>{panel.years}</span>
+              <span>{panel.fact}</span>
+            </div>
+            <h3
+              class="font-heading text-ink text-lead mt-3 uppercase"
+              id={`${panel.id}-title`}
+            >
+              {href ? (
+                <a
+                  class="hover:text-bronze hover:decoration-bronze underline decoration-transparent decoration-2 underline-offset-[6px] transition-colors duration-150"
+                  href={href}
+                >
+                  {panel.title}
+                </a>
+              ) : (
+                panel.title
+              )}
+            </h3>
+            <p class="text-body text-ink mt-4 max-w-[52ch]">{panel.summary}</p>
+            <dl class="mt-6 grid gap-3">
+              {panel.built.map((item) => (
+                <div class="grid grid-cols-[6.5rem_1fr] gap-4">
+                  <dt class="text-ink-muted text-small">{item.label}</dt>
+                  <dd class="text-ink text-small">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+            {href ? (
+              <a
+                class="min-h-tap text-body text-ink hover:text-bronze decoration-bronze mt-6 inline-flex items-center font-medium underline decoration-2 underline-offset-[6px] transition-colors duration-150"
+                href={href}
+              >
+                Read the {panel.title.toLowerCase()} case study
+              </a>
+            ) : null}
+          </div>
+        </article>
+      );
+    })}
   </div>
 </section>

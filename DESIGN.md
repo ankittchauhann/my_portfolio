@@ -103,11 +103,11 @@ Award-site research (Awwwards 2025–26 portfolio winners, the skill's 247-site 
 ## Page
 
 1. **Hero:** live map (left 47% on desktop, top half on phones), the name fitted to the full width along the bottom, one line on what the work is, **Email me**.
-2. **Work:** four projects. Desktop: text left (years, title, fact, summary, what was built on front end, back end and beyond), interface fragment right on a surface stage. Phone: fragment above text.
+2. **Work:** four projects. Desktop: text left (years, title, fact, summary, what was built on front end, back end and beyond), interface fragment right on a surface stage. Phone: fragment above text. Projects with a case study link three ways: the title, the mockup (label on hover, always shown on phones), and a closing "Read the … case study" link.
 3. **Results:** five figures, engineering wins first.
 4. **About:** heading and facts in a left column, paragraph from 34% of the width; roles and study below.
-5. **Contact** (inverse): email set as display type fitted to the width, phone, city, GitHub, LinkedIn.
-6. **Footer** (inverse): link columns, the name full width, copyright.
+5. **Contact** (inverse, sized to its content): one sentence, the email directly beneath it set as display type fitted to the width, then phone and city on the left and GitHub and LinkedIn on the right of one baseline.
+6. **Footer** (inverse, same ground as Contact, one section gap below it): one quiet line. Who this is on the left, Work / About / Back to top centred, the year and the source link on the right; three short lines on phones. Replaced the link columns and second full-width name on 2026-10-30: they repeated Contact's links and padded the end of the page with empty space.
 
 ## Case studies
 
@@ -119,7 +119,7 @@ Award-site research (Awwwards 2025–26 portfolio winners, the skill's 247-site 
 
 ## Motion
 
-- **Signature:** the name settles to 94% as the first screen scrolls away; the footer name grows back to full size as it arrives. CSS scroll-driven animations, only where supported.
+- **Signature:** the name settles to 94% as the first screen scrolls away. CSS scroll-driven animation, only where supported.
 - **Entrances:** blocks marked `data-reveal` rise 24px and fade in, 75ms apart, once. Content is hidden only after the reveal script has started, never under reduced motion, and everything is shown at the bottom of the page.
 - **Feedback:** colour and press transitions on every link and button.
 - Transform and opacity only; `prefers-reduced-motion` removes travel.
