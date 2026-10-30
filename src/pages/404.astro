@@ -1,0 +1,28 @@
+---
+import SiteHeader from "@/components/site-header.astro";
+import BaseLayout from "@/layouts/base-layout.astro";
+---
+
+<BaseLayout
+  description="This page doesn't exist. Head back to Ankit Singh Chouhan's portfolio."
+  title="Page not found"
+>
+  <SiteHeader home />
+  <main
+    class="px-page flex min-h-svh flex-col justify-end gap-6 pt-28 pb-[max(env(safe-area-inset-bottom),2.5rem)]"
+    id="main"
+  >
+    <h1 class="font-heading text-head text-ink leading-none uppercase">
+      Not found
+    </h1>
+    <p class="text-lead text-ink max-w-[30ch]">
+      This page doesn't exist, or it moved. The work is all on the home page.
+    </p>
+    <a
+      class="min-h-tap bg-bronze text-bronze-ink hover:bg-ink hover:text-ground inline-flex w-fit items-center px-5 font-medium transition-colors duration-150"
+      href="/"
+    >
+      Back to home
+    </a>
+  </main>
+</BaseLayout>

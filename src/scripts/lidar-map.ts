@@ -40,7 +40,7 @@ function placeRackRow(
   }
 }
 
-function buildWarehouse(cols: number, rows: number) {
+export function buildWarehouse(cols: number, rows: number) {
   const wall = new Uint8Array(cols * rows);
   const rand = seeded(42);
   const set = (x: number, y: number) => {
@@ -177,7 +177,10 @@ function nearestFree(
   return null;
 }
 
-export function mountLidarMap(canvas: HTMLCanvasElement) {
+export function mountLidarMap(
+  canvas: HTMLCanvasElement,
+  trigger?: Element | null
+) {
   const ctx = canvas.getContext("2d");
   if (!ctx) {
     return;
@@ -424,12 +427,7 @@ export function mountLidarMap(canvas: HTMLCanvasElement) {
       y: Math.floor(((event.clientY - rect.top) / rect.height) * rows),
     });
   });
-  canvas.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      sendTo(randomGoal());
-    }
-  });
+  trigger?.addEventListener("click", () => sendTo(randomGoal()));
 
   document.addEventListener("themechange", () => {
     requestAnimationFrame(() => {

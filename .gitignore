@@ -16,3 +16,7 @@ pr-message.md
 # logs
 *.log
 .idea/
+
+# test output
+test-results/
+playwright-report/

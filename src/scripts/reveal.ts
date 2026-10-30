@@ -1,14 +1,15 @@
 const STAGGER_MS = 75;
 
-export function mountReveal() {
+export function mountReveal(selector = "[data-reveal]") {
   const root = document.documentElement;
-  const items = [...document.querySelectorAll<HTMLElement>("[data-reveal]")];
+  const items = [...document.querySelectorAll<HTMLElement>(selector)];
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduced || !("IntersectionObserver" in window) || items.length === 0) {
     return;
   }
 
   for (const item of items) {
+    item.setAttribute("data-reveal", "");
     const rect = item.getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
       item.classList.add("is-in");
@@ -24,7 +25,10 @@ export function mountReveal() {
           continue;
         }
         const item = entry.target as HTMLElement;
-        item.style.setProperty("--reveal-delay", `${batch * STAGGER_MS}ms`);
+        item.style.setProperty(
+          "--reveal-delay",
+          `${Math.min(batch, 6) * STAGGER_MS}ms`
+        );
         item.classList.add("is-in");
         observer.unobserve(item);
         batch += 1;

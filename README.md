@@ -22,7 +22,10 @@ bun run dev
 | `bun run build` | Static build to `dist/` (set `SITE_URL` to emit the sitemap and canonical URLs) |
 | `bun run preview` | Serve the build |
 | `bun run check` | Type-check |
+| `bun run test` | Browser tests with Playwright (first run: `bunx playwright install chromium`) |
 | `bun run lint` / `bun run fix` | Lint and format |
+
+CI (GitHub Actions) runs lint, type-check, build and the browser tests on every push and pull request.
 
 Commits follow [Conventional Commits](https://www.conventionalcommits.org), checked by commitlint in a lefthook hook.
 

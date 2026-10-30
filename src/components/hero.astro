@@ -1,34 +1,64 @@
+---
+import { buildWarehouse } from "@/scripts/lidar-map";
+
+const FALLBACK_COLS = 48;
+const FALLBACK_ROWS = 56;
+const walls = buildWarehouse(FALLBACK_COLS, FALLBACK_ROWS);
+let fallbackPath = "";
+walls.forEach((wall, i) => {
+  if (wall) {
+    fallbackPath += `M${(i % FALLBACK_COLS) + 0.3} ${Math.floor(i / FALLBACK_COLS) + 0.3}h.4v.4h-.4z`;
+  }
+});
+---
+
 <section aria-labelledby="hero-title" class="hero relative isolate min-h-svh">
   <div
     class="hero-map bg-surface absolute inset-x-3 top-3 h-[52svh] lg:inset-x-auto lg:top-5 lg:left-5 lg:h-auto lg:w-[47vw]"
   >
     <canvas
-      aria-label="Live demo of a real-time map: a simulated robot drives through a warehouse and maps it as it goes. Press Enter to send it somewhere new."
+      aria-label="Live demo of a real-time map: a simulated robot drives through a warehouse and maps it as it goes."
       class="block size-full cursor-crosshair touch-manipulation"
       data-lidar
       role="img"
-      tabindex="0"
     ></canvas>
+    <noscript>
+      <svg
+        aria-hidden="true"
+        class="text-ink absolute inset-0 size-full"
+        preserveAspectRatio="xMidYMid slice"
+        viewBox={`0 0 ${FALLBACK_COLS} ${FALLBACK_ROWS}`}
+      >
+        <path d={fallbackPath} fill="currentColor"></path>
+      </svg>
+    </noscript>
     <p
       class="bg-ground/90 text-ink-muted text-small absolute top-[4.25rem] left-3 max-w-[30ch] px-3 py-2 lg:top-4 lg:left-4"
     >
-      A live map like the ones I build, running in your browser. Tap to send the
-      robot.
+      A live map like the ones I build, running in your browser. Tap the map to
+      send the robot.
     </p>
+    <button
+      class="min-h-tap bg-ground text-ink text-small absolute right-3 bottom-3 z-10 inline-flex items-center px-3 not-focus:sr-only lg:top-4 lg:right-4 lg:bottom-auto"
+      data-lidar-send
+      type="button"
+    >
+      Send the robot somewhere
+    </button>
   </div>
 
   <div
-    class="px-page relative z-10 flex min-h-svh flex-col pt-[calc(52svh+0.75rem-3vw)] pb-[max(env(safe-area-inset-bottom),2.5rem)] lg:block lg:p-0"
+    class="px-page pointer-events-none relative z-10 flex min-h-svh flex-col pt-[calc(52svh+0.75rem-3vw)] pb-[max(env(safe-area-inset-bottom),2.5rem)] lg:block lg:p-0"
   >
     <h1
-      class="hero-name font-heading text-display text-ink lg:right-page lg:left-page relative leading-[0.9] uppercase lg:absolute lg:bottom-10 lg:text-right lg:whitespace-nowrap"
+      class="hero-name font-heading text-display text-ink lg:right-page lg:left-page pointer-events-auto relative leading-[0.9] uppercase lg:absolute lg:bottom-10 lg:text-right lg:whitespace-nowrap"
       id="hero-title"
     >
       <span class="block lg:inline">Ankit</span>{" "}
       <span class="block lg:inline">Chouhan</span>
     </h1>
     <p
-      class="hero-lead text-ink text-lead mt-6 max-w-[30ch] leading-snug lg:absolute lg:top-[44%] lg:left-[calc(47vw+20px)] lg:mt-0 lg:max-w-[26ch] lg:-translate-y-1/2"
+      class="hero-lead text-ink text-lead pointer-events-auto mt-6 max-w-[30ch] leading-snug lg:absolute lg:top-[44%] lg:left-[calc(47vw+20px)] lg:mt-0 lg:max-w-[26ch] lg:-translate-y-1/2"
     >
       Full‑stack developer. I build real‑time web apps end to end, React to Node
       to MongoDB, for a robotics company in Bangalore.
@@ -58,6 +88,9 @@
   for (const canvas of document.querySelectorAll<HTMLCanvasElement>(
     "[data-lidar]"
   )) {
-    mountLidarMap(canvas);
+    mountLidarMap(
+      canvas,
+      canvas.parentElement?.querySelector("[data-lidar-send]")
+    );
   }
 </script>
