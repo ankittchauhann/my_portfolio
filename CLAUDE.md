@@ -41,7 +41,7 @@ Personal portfolio of a full-stack developer who works at a robotics company (AN
 - Default to `.astro` components. Reach for a React island only for real interactivity, and hydrate with the laziest directive that works (`client:visible` > `client:idle` > `client:load`).
 - **Mobile-first, always.** Build every component at 375px first, then scale up with `sm:`/`md:`/`lg:`. Tap targets ≥ 44px (`min-h-tap`), equal page margins (`px-page`), safe-area insets, no horizontal scroll at any width.
 - Light and dark themes via `[data-theme]` on `<html>`; every change must work in both (check with `?theme=light` / `?theme=dark`). `.inverse` flips a section to the other palette.
-- No photographs of any company's products or people, and no photo of the owner. Show work as HTML interface fragments with sample data.
+- No photographs of any company's products or people. Show work as HTML interface fragments with sample data. The owner's portrait appears only as the ones-and-zeros rendering in the hero (`src/data/portrait.ts`, regenerated with `tools/portrait/`); the source photo stays out of the repo.
 - Colors, type sizes, radius and spacing come from tokens in `global.css` (`bg-ground`, `text-ink`, `text-head`, `px-page`, …); no hardcoded hex or arbitrary sizes in markup.
 - Follow the taste skill's house rules (listed in DESIGN.md): no eyebrows, monospace, numbering, thin rules, gradients, shadows, glass or icon card rows.
 - File names are kebab-case (Ultracite rule), including `.astro` components.

@@ -89,6 +89,10 @@ test("?theme= forces a theme without saving it", async ({ page }) => {
 test("live map mounts and takes taps and keys", async ({ page }) => {
   const errors = collectErrors(page);
   await page.goto("/");
+  await expect(page.locator("[data-portrait]")).toHaveAttribute(
+    "data-ready",
+    "true"
+  );
   const map = page.locator("[data-lidar]");
   await expect(map).toHaveAttribute("data-ready", "true");
   await map.click({ position: { x: 120, y: 160 } });
@@ -149,5 +153,10 @@ test.describe("without JavaScript", () => {
     await page.goto("/");
     await expect(page.getByRole("heading", { name: "Work" })).toBeVisible();
     await expect(page.locator(".hero-map svg path")).toBeAttached();
+    await expect(
+      page.getByRole("img", {
+        name: "Portrait of Ankit Singh Chouhan, drawn as dots.",
+      })
+    ).toBeVisible();
   });
 });

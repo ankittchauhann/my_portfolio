@@ -102,7 +102,7 @@ Award-site research (Awwwards 2025–26 portfolio winners, the skill's 247-site 
 
 ## Page
 
-1. **Hero:** live map (left 47% on desktop, top half on phones), the name fitted to the full width along the bottom, one line on what the work is, **Email me**.
+1. **Hero:** live map (left 47% on desktop, top half on phones), the name fitted to the full width along the bottom, and in the right half a portrait drawn in ones and zeros above one line on what the work is. The portrait is a 76×95 brightness grid (`src/data/portrait.ts`, about 7 KB) drawn on a canvas in the theme's ink: digits scramble and settle top to bottom on first view, then a few flip at random; static under reduced motion; a dithered PNG per theme without JavaScript. On phones it follows the sentence at about 60% width.
 2. **Work:** four projects. Desktop: text left (years, title, fact, summary, what was built on front end, back end and beyond), interface fragment right on a surface stage. Phone: fragment above text. Projects with a case study link three ways: the title, the mockup (label on hover, always shown on phones), and a closing "Read the … case study" link.
 3. **Results:** five figures, engineering wins first.
 4. **About:** heading and facts in a left column, paragraph from 34% of the width; roles and study below.

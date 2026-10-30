@@ -57,12 +57,43 @@ walls.forEach((wall, i) => {
       <span class="block lg:inline">Ankit</span>{" "}
       <span class="block lg:inline">Chouhan</span>
     </h1>
-    <p
-      class="hero-lead text-ink text-lead pointer-events-auto mt-6 max-w-[30ch] leading-snug lg:absolute lg:top-[44%] lg:left-[calc(47vw+20px)] lg:mt-0 lg:max-w-[26ch] lg:-translate-y-1/2"
+    <div
+      class="hero-side lg:absolute lg:flex lg:items-center lg:justify-center"
     >
-      Full‑stack developer. I build real‑time web apps end to end, React to Node
-      to MongoDB, for a robotics company in Bangalore.
-    </p>
+      <div class="flex flex-col lg:items-start">
+        <p
+          class="text-ink text-lead pointer-events-auto order-1 mt-6 max-w-[30ch] leading-snug lg:order-2 lg:mt-8 lg:max-w-[26ch]"
+        >
+          Full‑stack developer. I build real‑time web apps end to end, React to
+          Node to MongoDB, for a robotics company in Bangalore.
+        </p>
+        <figure
+          class="hero-portrait relative order-2 mt-10 aspect-[76/95] lg:order-1 lg:mt-0"
+        >
+          <canvas
+            aria-label="Portrait of Ankit Singh Chouhan, drawn in ones and zeros."
+            class="block size-full"
+            data-portrait
+            role="img"
+          ></canvas>
+          <noscript>
+            <picture>
+              <source
+                media="(prefers-color-scheme: dark)"
+                srcset="/portrait-dark.png"
+              >
+              <img
+                alt="Portrait of Ankit Singh Chouhan, drawn as dots."
+                class="absolute inset-0 size-full [image-rendering:pixelated]"
+                height="380"
+                src="/portrait-light.png"
+                width="304"
+              >
+            </picture>
+          </noscript>
+        </figure>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -71,19 +102,39 @@ walls.forEach((wall, i) => {
     letter-spacing: -0.02em;
   }
 
+  .hero-portrait {
+    width: min(62%, 16rem);
+  }
+
   @media (min-width: 64rem) {
     .hero-map {
       bottom: calc(2.5rem + var(--step-display) * 0.42);
     }
 
-    .hero-lead {
-      margin-left: max(var(--page-margin), calc((53vw - 20px - 26ch) / 2));
+    .hero-side {
+      top: 6.5rem;
+      right: var(--page-margin);
+      bottom: calc(2.5rem + var(--step-display) * 0.9 + 2rem);
+      left: calc(47vw + 20px);
+    }
+
+    .hero-portrait {
+      width: auto;
+      height: min(30rem, calc(100svh - 21rem - var(--step-display) * 0.9));
     }
   }
 </style>
 
 <script>
+  import { portrait } from "@/data/portrait";
   import { mountLidarMap } from "@/scripts/lidar-map";
+  import { mountPortrait } from "@/scripts/portrait";
+
+  for (const canvas of document.querySelectorAll<HTMLCanvasElement>(
+    "[data-portrait]"
+  )) {
+    mountPortrait(canvas, portrait);
+  }
 
   for (const canvas of document.querySelectorAll<HTMLCanvasElement>(
     "[data-lidar]"
