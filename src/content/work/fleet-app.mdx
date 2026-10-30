@@ -1,0 +1,84 @@
+---
+title: Fleet app
+summary: A web app for running a whole site of robots from one screen. Live positions, status, missions and analytics, with role-based access for every kind of user.
+years: 2024–now
+role: Full-stack developer, ANSCER Robotics
+order: 1
+built:
+  - label: Front end
+    value: React 19, TanStack Router, Query, Form and Table, Zustand, Leaflet
+  - label: Back end
+    value: Hono, MongoDB, Redis, Better Auth, Zod
+  - label: Delivery
+    value: Turborepo, Bun, Docker, GitHub Actions
+---
+
+import ArchitectureDiagram from "@/components/fragments/architecture-diagram.astro";
+import FleetFragment from "@/components/fragments/fleet-fragment.astro";
+import QueryFragment from "@/components/fragments/query-fragment.astro";
+import RolesFragment from "@/components/fragments/roles-fragment.astro";
+
+## The problem
+
+A single site can run a large fleet of autonomous robots. Operators need to see every one of them at once and act within a second when one gets stuck. Supervisors need history, reports and exports. Admins need to decide who can do what.
+
+The first version shipped in 2024 as one client and one server. By 2025 it had to share code with other apps, enforce stricter access rules, and build much faster than it did.
+
+## What I built
+
+I architected and delivered the rebuild as a TypeScript monorepo: the React app, the API, and the shared packages between them.
+
+{/* TODO: confirm which parts you owned alone and which you built with the team. */}
+
+<div class="case-wide bg-surface flex justify-center px-4 py-10 sm:px-8">
+  <FleetFragment />
+</div>
+
+## Architecture
+
+<div class="case-wide bg-surface px-4 py-8 sm:px-8">
+  <ArchitectureDiagram
+    flows={[
+      "Robots → API: robot state over rosbridge",
+      "API → browsers: live telemetry over server-sent events",
+      "Browser → API: REST requests, validated with Zod",
+      "API → MongoDB and Redis: queries through one shared query engine",
+    ]}
+    label="Fleet app architecture: a React app in the browser, a Hono API, and MongoDB, Redis and the robots behind it."
+    lanes={[
+      { title: "Browser", items: ["React app", "Site map and robot list", "Missions and analytics", "Admin and roles"] },
+      { title: "API", items: ["Hono on Bun", "Query engine", "Sign-in and role checks", "Telemetry fan-out"] },
+      { title: "Data and robots", items: ["MongoDB", "Redis", "Robots over rosbridge"] },
+    ]}
+  />
+</div>
+
+- **The app:** React 19 with TanStack Router for type-safe routes, TanStack Query for server state, and Zustand for live robot state. Leaflet draws the site map with marker clustering and rotation.
+- **The API:** Hono on Bun, MongoDB through Mongoose, Redis, and Zod validation on every request.
+- **The robots:** a bridge to each robot's ROS software over rosbridge, fanned out to every browser that is watching.
+- **Shared packages:** access rules, event names, logging and the UI kit, so the server and the app agree on types.
+- **Delivery:** a Docker image per app, built in GitHub Actions with Turborepo caching.
+
+## Hard parts
+
+**Real time without melting the browser.** Telemetry never stops arriving. The server pushes it with server-sent events, which are one-way, reconnect on their own and pass through proxies. WebSockets are kept for the few places that need two-way control. In the app, fast-changing robot state lives outside React's render cycle, and map markers are moved directly, so a hundred robots glide across the map without re-rendering the page.
+
+**One query engine instead of dozens of endpoints.** Every list screen talks to one generic layer for filtering, sorting, projection and pagination over MongoDB. That removed 30% of the custom endpoints, and index work on the busiest aggregations cut query latency by 30%.
+
+<div class="case-wide bg-surface flex justify-center px-4 py-10 sm:px-8">
+  <QueryFragment />
+</div>
+
+**Access that holds on the server.** Sign-in uses OAuth2, and roles (operator, admin, developer) come from Better Auth. The permission definitions are shared, enforced by the API, and mirrored in the app only to hide what a role can't use.
+
+<div class="case-wide bg-surface flex justify-center px-4 py-10 sm:px-8">
+  <RolesFragment />
+</div>
+
+## Results
+
+- 100+ robots on one dashboard, with telemetry less than a second old
+- 70% shorter CI builds after moving to Turborepo caching
+- 50% faster first load through code splitting and lazy loading
+- 30% lower query latency and 30% fewer custom endpoints
+- Client onboarding 70% faster, and operations 35% more efficient across the delivery cycle

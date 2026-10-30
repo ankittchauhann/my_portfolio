@@ -1,0 +1,131 @@
+---
+const modes = [
+  { id: "follow", label: "Follow" },
+  { id: "top", label: "Top" },
+  { id: "free", label: "Free" },
+];
+---
+
+<div class="bg-surface" data-point-cloud>
+  <div
+    class="relative aspect-[4/5] w-full sm:aspect-[16/10]"
+    data-point-cloud-stage
+  >
+    <p
+      class="text-ink-muted text-small absolute inset-0 grid place-items-center p-6 text-center"
+      data-point-cloud-note
+    >
+      The 3D view loads when you scroll here.
+    </p>
+  </div>
+  <div class="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4">
+    <p class="text-ink-muted text-small max-w-[44ch]">
+      A warehouse point cloud with a live LiDAR scan, in the three camera modes
+      the real app has. In Free, drag to orbit.
+    </p>
+    <fieldset class="flex gap-1">
+      <legend class="sr-only">Camera</legend>
+      {modes.map((mode, i) => (
+        <button
+          aria-pressed={i === 0 ? "true" : "false"}
+          class="min-h-tap text-small aria-pressed:bg-ink aria-pressed:text-ground bg-ground text-ink px-4 transition-colors duration-150"
+          data-mode={mode.id}
+          type="button"
+        >
+          {mode.label}
+        </button>
+      ))}
+    </fieldset>
+  </div>
+</div>
+
+<script>
+  import type { Mode } from "@/scripts/point-cloud/scene";
+
+  const supportsWebGL = () => {
+    try {
+      const canvas = document.createElement("canvas");
+      return Boolean(canvas.getContext("webgl2") ?? canvas.getContext("webgl"));
+    } catch {
+      return false;
+    }
+  };
+
+  type Demo = ReturnType<
+    typeof import("@/scripts/point-cloud/scene").mountPointCloud
+  >;
+
+  function setup(root: HTMLElement) {
+    const stage = root.querySelector<HTMLElement>("[data-point-cloud-stage]");
+    const note = root.querySelector<HTMLElement>("[data-point-cloud-note]");
+    const buttons = [
+      ...root.querySelectorAll<HTMLButtonElement>("[data-mode]"),
+    ];
+    if (!stage) {
+      return;
+    }
+
+    let demo: Demo | null = null;
+    let loading = false;
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const load = async () => {
+      if (loading) {
+        return;
+      }
+      loading = true;
+      if (!supportsWebGL()) {
+        if (note) {
+          note.textContent =
+            "This 3D demo needs WebGL, which this browser has turned off.";
+        }
+        return;
+      }
+      if (note) {
+        note.textContent = "Loading the 3D view…";
+      }
+      const { mountPointCloud } = await import("@/scripts/point-cloud/scene");
+      demo = mountPointCloud(stage, { reduced });
+      note?.remove();
+      demo.start();
+    };
+
+    new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          load();
+          demo?.start();
+        } else {
+          demo?.stop();
+        }
+      },
+      { rootMargin: "200px 0px" }
+    ).observe(root);
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        demo?.stop();
+      }
+    });
+    document.addEventListener("themechange", () =>
+      requestAnimationFrame(() => demo?.repaint())
+    );
+
+    const select = (event: Event) => {
+      const chosen = event.currentTarget as HTMLButtonElement;
+      for (const other of buttons) {
+        other.setAttribute("aria-pressed", String(other === chosen));
+      }
+      demo?.setMode(chosen.dataset.mode as Mode);
+    };
+    for (const button of buttons) {
+      button.addEventListener("click", select);
+    }
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>(
+    "[data-point-cloud]"
+  )) {
+    setup(root);
+  }
+</script>

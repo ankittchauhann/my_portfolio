@@ -1,0 +1,80 @@
+---
+const roles = ["Operator", "Admin", "Developer"];
+const actions = [
+  { allowed: [true, true, true], name: "Watch the fleet" },
+  { allowed: [true, true, true], name: "Send missions" },
+  { allowed: [false, true, true], name: "Edit maps and zones" },
+  { allowed: [false, true, false], name: "Manage users" },
+  { allowed: [false, false, true], name: "Robot diagnostics" },
+];
+---
+
+<div
+  aria-label="Sample screen: a permissions matrix for operator, admin and developer roles."
+  class="roles w-full max-w-[36rem]"
+  data-ui
+  role="img"
+>
+  <div class="roles-head">
+    <p class="roles-title">Roles and permissions</p>
+  </div>
+  <table class="roles-table">
+    <thead>
+      <tr>
+        <th></th>
+        {roles.map((role) => <th>{role}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {actions.map((action) => (
+        <tr>
+          <td>{action.name}</td>
+          {action.allowed.map((ok) => (
+            <td class:list={["roles-cell", { "is-on": ok }]}>
+              {ok ? "Yes" : "No"}
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  [data-ui].roles {
+    font-size: 0.875rem;
+    color: var(--ink);
+    background: var(--ground);
+    border: 1px solid var(--surface-2);
+    border-radius: 6px;
+  }
+  [data-ui] .roles-head {
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--surface-2);
+  }
+  [data-ui] .roles-title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  [data-ui] .roles-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  [data-ui] .roles-table th,
+  [data-ui] .roles-table td {
+    padding: 0.625rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--surface);
+  }
+  [data-ui] .roles-table th {
+    font-weight: 500;
+    color: var(--ink-muted);
+  }
+  [data-ui] .roles-cell {
+    color: var(--ink-muted);
+  }
+  [data-ui] .roles-cell.is-on {
+    font-weight: 500;
+    color: var(--ink);
+  }
+</style>

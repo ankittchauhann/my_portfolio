@@ -1,0 +1,133 @@
+---
+import { getCollection, render } from "astro:content";
+import SiteFooter from "@/components/site-footer.astro";
+import SiteHeader from "@/components/site-header.astro";
+import { person } from "@/data/site";
+import BaseLayout from "@/layouts/base-layout.astro";
+
+export async function getStaticPaths() {
+  const entries = (await getCollection("work")).sort(
+    (a, b) => a.data.order - b.data.order
+  );
+  return entries.map((item, i) => ({
+    params: { slug: item.id },
+    props: { entry: item, next: entries[(i + 1) % entries.length] },
+  }));
+}
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+---
+
+<BaseLayout description={data.summary} title={data.title}>
+  <SiteHeader home />
+  <main class="px-page pt-28 lg:pt-36" id="main">
+    <article>
+      <header class="lg:grid lg:grid-cols-12 lg:gap-x-6">
+        <div class="lg:col-span-8">
+          <h1
+            class="font-heading text-head text-ink mt-4 leading-none uppercase"
+          >
+            {data.title}
+          </h1>
+          <p class="text-lead text-ink mt-6 max-w-[40ch] leading-snug">
+            {data.summary}
+          </p>
+        </div>
+        <dl class="mt-10 grid gap-3 lg:col-span-4 lg:mt-0 lg:self-end">
+          {[
+            { label: "Years", value: data.years },
+            { label: "Role", value: data.role },
+            ...data.built,
+          ].map((item) => (
+            <div class="grid grid-cols-[6.5rem_1fr] gap-4">
+              <dt class="text-ink-muted text-small">{item.label}</dt>
+              <dd class="text-ink text-small">{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </header>
+
+      <div class="case-body mt-section">
+        <Content />
+      </div>
+    </article>
+
+    <nav
+      aria-label="More work"
+      class="py-section flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <a class="group block" href={`/work/${next.id}`}>
+        <span class="text-ink-muted text-small block">Next case study</span>
+        <span
+          class="font-heading text-lead text-ink group-hover:text-bronze mt-2 block uppercase transition-colors"
+        >
+          {next.data.title}
+        </span>
+      </a>
+      <a
+        class="min-h-tap bg-bronze text-bronze-ink hover:bg-ink hover:text-ground inline-flex w-fit items-center px-5 font-medium transition-colors duration-150"
+        href={`mailto:${person.email}`}
+      >
+        Email me
+      </a>
+    </nav>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<script>
+  import { mountReveal } from "@/scripts/reveal";
+
+  mountReveal("[data-reveal], .case-body > *");
+</script>
+
+<style>
+  .case-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.25rem;
+  }
+
+  .case-body > :global(*) {
+    max-width: 68ch;
+  }
+
+  .case-body > :global(.case-wide) {
+    max-width: none;
+    margin-block: 1.5rem;
+  }
+
+  @media (min-width: 64rem) {
+    .case-body > :global(*:not(.case-wide)) {
+      margin-left: 25%;
+    }
+  }
+
+  .case-body :global(h2) {
+    margin-top: 2.5rem;
+    font-family: var(--font-heading);
+    font-size: var(--step-lead);
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+
+  .case-body :global(p),
+  .case-body :global(li) {
+    font-size: var(--step-body);
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .case-body :global(ul) {
+    display: grid;
+    gap: 0.5rem;
+    padding-left: 1.25rem;
+    list-style: square;
+  }
+
+  .case-body :global(strong) {
+    font-weight: 500;
+  }
+</style>

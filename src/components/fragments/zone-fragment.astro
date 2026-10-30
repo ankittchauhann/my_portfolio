@@ -1,0 +1,92 @@
+<div
+  aria-label="Sample screen: a map editor with a speed-limit zone selected and its settings panel."
+  class="zone w-full max-w-[36rem]"
+  data-ui
+  role="img"
+>
+  <svg aria-hidden="true" class="zone-map" viewBox="0 0 160 100">
+    <rect class="zone-floor" height="100" width="160"></rect>
+    <rect class="zone-rack" height="8" width="90" x="12" y="14"></rect>
+    <rect class="zone-rack" height="8" width="90" x="12" y="42"></rect>
+    <rect class="zone-rack" height="8" width="90" x="12" y="70"></rect>
+    <polygon
+      class="zone-area"
+      points="110,10 150,10 150,60 120,60 110,45"
+    ></polygon>
+    <circle class="zone-handle" cx="110" cy="10" r="2.5"></circle>
+    <circle class="zone-handle" cx="150" cy="10" r="2.5"></circle>
+    <circle class="zone-handle" cx="150" cy="60" r="2.5"></circle>
+    <circle class="zone-handle" cx="120" cy="60" r="2.5"></circle>
+    <circle class="zone-handle" cx="110" cy="45" r="2.5"></circle>
+  </svg>
+  <dl class="zone-panel">
+    <div>
+      <dt>Zone</dt>
+      <dd>Loading bay</dd>
+    </div>
+    <div>
+      <dt>Type</dt>
+      <dd>Speed limit</dd>
+    </div>
+    <div>
+      <dt>Max speed</dt>
+      <dd>0.5 m/s</dd>
+    </div>
+    <div>
+      <dt>Applies to</dt>
+      <dd>All robots</dd>
+    </div>
+  </dl>
+</div>
+
+<style>
+  [data-ui].zone {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+    font-size: 0.875rem;
+    color: var(--ink);
+    background: var(--ground);
+    border: 1px solid var(--surface-2);
+    border-radius: 6px;
+  }
+  @media (min-width: 40rem) {
+    [data-ui].zone {
+      grid-template-columns: 1.6fr 1fr;
+      align-items: start;
+    }
+  }
+  [data-ui] .zone-map {
+    width: 100%;
+    border-radius: 4px;
+  }
+  [data-ui] .zone-floor {
+    fill: var(--surface);
+  }
+  [data-ui] .zone-rack {
+    fill: var(--surface-2);
+  }
+  [data-ui] .zone-area {
+    fill: var(--bronze);
+    fill-opacity: 0.25;
+    stroke: var(--bronze);
+    stroke-width: 1;
+  }
+  [data-ui] .zone-handle {
+    fill: var(--ground);
+    stroke: var(--bronze);
+    stroke-width: 1;
+  }
+  [data-ui] .zone-panel {
+    display: grid;
+    gap: 0.625rem;
+    margin: 0;
+  }
+  [data-ui] .zone-panel dt {
+    color: var(--ink-muted);
+  }
+  [data-ui] .zone-panel dd {
+    margin: 0.125rem 0 0;
+    font-weight: 500;
+  }
+</style>

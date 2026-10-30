@@ -1,8 +1,17 @@
 ---
+import { getCollection } from "astro:content";
 import FleetFragment from "@/components/fragments/fleet-fragment.astro";
 import GitaFragment from "@/components/fragments/gita-fragment.astro";
 import RobotFragment from "@/components/fragments/robot-fragment.astro";
 import UpdateFragment from "@/components/fragments/update-fragment.astro";
+
+const caseStudies = new Set(
+  (await getCollection("work")).map((entry) => entry.id)
+);
+const caseStudyFor: Record<string, string> = {
+  fleet: "fleet-app",
+  robot: "robot-app",
+};
 
 const panels = [
   {
@@ -79,7 +88,7 @@ const panels = [
     {panels.map((panel) => (
       <article
         aria-labelledby={`${panel.id}-title`}
-        class="grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-x-6"
+        class="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-12 lg:items-center lg:gap-x-6"
       >
         <div
           class="bg-surface flex justify-center px-4 py-10 sm:px-8 lg:order-2 lg:col-span-7 lg:px-12 lg:py-16"
@@ -100,6 +109,14 @@ const panels = [
             {panel.title}
           </h3>
           <p class="text-body text-ink mt-4 max-w-[52ch]">{panel.summary}</p>
+          {caseStudies.has(caseStudyFor[panel.id] ?? "") && (
+            <a
+              class="min-h-tap text-ink text-small hover:text-bronze decoration-bronze mt-5 inline-flex items-center underline underline-offset-4 transition-colors"
+              href={`/work/${caseStudyFor[panel.id]}`}
+            >
+              Read the case study
+            </a>
+          )}
           <dl class="mt-6 grid gap-3">
             {panel.built.map((item) => (
               <div class="grid grid-cols-[6.5rem_1fr] gap-4">

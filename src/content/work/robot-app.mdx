@@ -1,0 +1,87 @@
+---
+title: Robot app
+summary: The touchscreen app on every robot. Maps and zones, missions, a 3D view of what the robot sees, and an offline assistant that answers from the robot's own documentation.
+years: "2026"
+role: Full-stack developer, ANSCER Robotics
+order: 2
+built:
+  - label: Front end
+    value: React 19, TanStack, Zustand, Konva, React Flow, Three.js
+  - label: Back end
+    value: Hono with OpenAPI, MongoDB, Redis, Socket.io
+  - label: AI
+    value: LangChain, Ollama, ChromaDB
+---
+
+import PointCloudDemo from "@/components/demos/point-cloud-demo.astro";
+import ArchitectureDiagram from "@/components/fragments/architecture-diagram.astro";
+import RobotFragment from "@/components/fragments/robot-fragment.astro";
+import UpdateFragment from "@/components/fragments/update-fragment.astro";
+import ZoneFragment from "@/components/fragments/zone-fragment.astro";
+
+## The problem
+
+People set robots up on site: standing next to the machine, on its touchscreen, often without a network. So the app runs on the robot itself. It talks to the robot's ROS software in real time and has to stay smooth while pose, laser scans and diagnostics arrive ten to twenty times a second.
+
+## What I built
+
+The app and its server, in one monorepo with shared packages for events, logging and the UI kit. The same repo ships a guided update wizard for installing new robot software.
+
+{/* TODO: confirm which parts you owned alone and which you built with the team. */}
+
+## Architecture
+
+<div class="case-wide bg-surface px-4 py-8 sm:px-8">
+  <ArchitectureDiagram
+    flows={[
+      "Robot software → server: ROS topics over rosbridge",
+      "Server → screen: live state over Socket.io",
+      "Screen → server: REST requests described in OpenAPI",
+      "Assistant: question → relevant docs from ChromaDB → local model in Ollama",
+    ]}
+    label="Robot app architecture: a React app on the touchscreen, a Hono server on the robot, and the robot software, databases and local AI behind it."
+    lanes={[
+      { title: "Touchscreen", items: ["Map and zone editor", "Mission and graph editors", "3D view", "Assistant"] },
+      { title: "On-robot server", items: ["Hono with OpenAPI", "Socket.io hub", "Sign-in and page access", "Retrieval with LangChain"] },
+      { title: "Robot and data", items: ["ROS via rosbridge", "MongoDB and Redis", "Ollama and ChromaDB"] },
+    ]}
+  />
+</div>
+
+- **Editing:** a map and zone editor on a Konva canvas, and mission and route-graph editors on React Flow.
+- **Seeing:** a layered 3D view in Three.js: occupancy map, live mapping cloud, laser scan, planned path, waypoints, zones and safety fields, each a layer that can be switched on or off.
+- **Reporting:** analytics charts, heatmaps and PDF reports generated in the browser.
+- **The server:** Hono with every route described in OpenAPI, MongoDB and Redis, Socket.io to the screen, and rosbridge to the robot.
+- **Access:** pages check the user's role before they render, so typing a URL doesn't skip a permission.
+
+<div class="case-wide bg-surface flex justify-center px-4 py-10 sm:px-8">
+  <ZoneFragment />
+</div>
+
+## Try the 3D view
+
+A small rebuild of the idea with sample data: a warehouse as a point cloud, a robot driving its aisles, and its live LiDAR scan. Switch between the three camera modes the real app has.
+
+<div class="case-wide">
+  <PointCloudDemo />
+</div>
+
+## Hard parts
+
+**Sensor-rate data in React.** A component that re-renders at sensor rate stalls the screen. Fast state lives in a store that the canvas layers subscribe to directly; they move Konva shapes, map markers and Three.js objects themselves, and React only re-renders when something a person reads has changed.
+
+**Hours of uptime on the GPU.** The app stays open for a whole shift. Every 3D layer disposes its geometries, materials and textures when it changes, so memory stays flat instead of creeping up until the screen stutters.
+
+**An assistant with no internet.** The robot's documentation is split into chunks, embedded and stored in ChromaDB on the robot. Ollama runs the model locally, and LangChain pulls in the relevant sections so answers are grounded in the robot's own docs.
+
+<div class="case-wide bg-surface flex justify-center px-4 py-10 sm:px-8">
+  <RobotFragment />
+</div>
+
+## Shipping updates to robots
+
+The same repo ships a guided installer for robot software. It checks the hardware, lets someone pick versions and add packages, shows a review, then installs. A small authenticated service on the robot does the deploying.
+
+<div class="case-wide bg-surface flex justify-center px-4 py-10 sm:px-8">
+  <UpdateFragment />
+</div>

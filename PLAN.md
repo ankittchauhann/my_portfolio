@@ -8,7 +8,7 @@ A fast, content-first portfolio that shows a full-stack developer who builds rea
 
 - Astro (static) + React 19 islands, TypeScript strict
 - Tailwind v4 + shadcn/ui, MDX content collections
-- 3D: three + React Three Fiber + drei, reserved for the robot-app case study
+- 3D: plain three.js, lazy-loaded in the robot-app case study
 - Bun, Biome via Ultracite, lefthook + commitlint
 - Deploy: Vercel or Cloudflare Pages
 
@@ -41,9 +41,9 @@ A robot navigates a warehouse made of points; its scan sweeps and reveals shelve
 2. **Design system** — direction dealt (dark-room), tokens in `global.css`, `DESIGN.md` ✅
 3. **Base layout** — head/SEO, skip link, nav, theme toggle, footer ✅
 4. **Home page** — all sections, live 2D map hero, motion, both themes ✅
-5. **Case studies** — content schema, FMS first, then the rest (`/case-study <project>`); redact screenshots
-6. **3D demo** — LiDAR point-cloud island inside the robot-app case study, with fallbacks and performance budget
-7. **QA and launch** — `senior-frontend-reviewer`, `web-design-guidelines`, `ui-qa`, Lighthouse; deploy and custom domain
+5. **Case studies** — schema and template ✅, Fleet app ✅ and Robot app ✅ (owner to confirm TODOs); Update wizard and Gita reader next
+6. **3D demo** — point cloud with live scan and follow/top/free cameras in the robot-app case study ✅ (plain three.js, ~136 KB gz, loaded on view)
+7. **QA and launch** — deployed on Vercel ✅; 404, robots.txt, manifest, no-JS fallback, Playwright tests and CI ✅; still to do: set `SITE_URL` and a clean domain, `senior-frontend-reviewer` and `web-design-guidelines` reviews, Lighthouse; social image and résumé on hold
 
 The site is shippable after phase 5; phase 6 is additive.
 

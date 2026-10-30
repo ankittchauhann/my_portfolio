@@ -7,7 +7,7 @@ Personal portfolio of a full-stack developer who works at a robotics company (AN
 - **Astro** (static output) with **React 19 islands** only where interactivity earns its JS
 - **TypeScript** strict, **Tailwind v4**, **shadcn/ui** for interactive primitives
 - **MDX** content collections for case studies (`src/content/work/`)
-- **three + React Three Fiber + drei** reserved for a 3D demo in the robot-app case study (see `PLAN.md`); the hero map is a plain 2D canvas
+- **three** (plain, named imports) for the 3D demo in the robot-app case study, lazy-loaded when visible; the hero map is a plain 2D canvas. No React islands are in use yet.
 - **Bun** as package manager and runner, **Biome via Ultracite** for lint/format
 - **lefthook** + **commitlint** (conventional commits), deployed to Vercel or Cloudflare Pages
 
@@ -16,6 +16,7 @@ Personal portfolio of a full-stack developer who works at a robotics company (AN
 - `bun run dev` — dev server (`http://localhost:4321`)
 - `bun run build` / `bun run preview` — production build and preview
 - `bun run lint` / `bun run fix` — Ultracite check / autofix
+- `bun run test` — Playwright browser tests (builds, serves on :4173, runs `tests/`); CI runs lint, check, build and test on every push
 - `bun run check` — type-check `.astro` and `.ts` files (`astro check`; needs TypeScript 6)
 - Node 22 (`.nvmrc`); run `nvm use` first — Astro 7 refuses Node 20
 
@@ -28,7 +29,10 @@ Personal portfolio of a full-stack developer who works at a robotics company (AN
 - `src/styles/global.css` — Tailwind entry, light and dark palettes, `.inverse` sections, motion
 - `src/data/site.ts` — all page content (contact, nav, results, stack, roles)
 - `src/components/fragments/` — interface mockups shown as the work's pictures (`data-ui`, sample data only)
-- `src/scripts/` — `lidar-map.ts` (hero live map), `reveal.ts` (entrances)
+- `src/scripts/` — `lidar-map.ts` (hero live map), `reveal.ts` (entrances), `point-cloud/scene.ts` (3D demo)
+- `src/components/demos/` — interactive demos embedded in case studies
+- `src/pages/work/[slug].astro` — case study template; content in `src/content/work/*.mdx`
+- `tests/` — Playwright specs; `.github/workflows/ci.yml` — CI
 - `DESIGN.md` — the design system and why; read it before any UI work
 - `public/` — static assets; redacted screenshots go in `public/work/<slug>/`
 
