@@ -1,0 +1,141 @@
+---
+const robots = [
+  { battery: 82, name: "AMR-07", state: "Moving to Dock 2", tone: "ok" },
+  { battery: 41, name: "AMR-12", state: "Charging", tone: "ok" },
+  { battery: 67, name: "AMR-03", state: "Path blocked", tone: "warn" },
+  { battery: 93, name: "AMR-19", state: "Idle", tone: "ok" },
+];
+const racks = [
+  [14, 18, 70, 8],
+  [14, 40, 52, 8],
+  [76, 40, 30, 8],
+  [14, 62, 70, 8],
+  [96, 62, 10, 8],
+];
+const dots = [
+  [50, 31, false],
+  [104, 24, false],
+  [40, 54, true],
+  [92, 76, false],
+];
+---
+
+<div
+  aria-label="Sample fleet screen: a site map with four robots and a status list, one robot reporting a blocked path."
+  class="fleet w-full max-w-[36rem]"
+  data-ui
+  role="img"
+>
+  <div class="fleet-head">
+    <p class="fleet-title">Site overview</p>
+    <p class="fleet-meta">24 robots · 1 needs attention</p>
+  </div>
+  <div class="fleet-body">
+    <svg aria-hidden="true" class="fleet-map" viewBox="0 0 120 90">
+      <rect class="fleet-floor" height="90" width="120"></rect>
+      {racks.map(([x, y, w, h]) => (
+        <rect class="fleet-rack" height={h} width={w} x={x} y={y} />
+      ))}
+      {dots.map(([x, y, warn]) => (
+        <rect
+          class:list={["fleet-bot", { "is-warn": warn }]}
+          height="5"
+          width="5"
+          x={Number(x) - 2.5}
+          y={Number(y) - 2.5}
+        />
+      ))}
+    </svg>
+    <ul class="fleet-list">
+      {robots.map((r) => (
+        <li class="fleet-row">
+          <span class="fleet-name">{r.name}</span>
+          <span class:list={["fleet-state", { "is-warn": r.tone === "warn" }]}>
+            {r.state}
+          </span>
+          <span class="fleet-batt">{r.battery}%</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  [data-ui].fleet {
+    font-size: 0.875rem;
+    color: var(--ink);
+    background: var(--ground);
+    border: 1px solid var(--surface-2);
+    border-radius: 6px;
+  }
+  [data-ui] .fleet-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    justify-content: space-between;
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--surface-2);
+  }
+  [data-ui] .fleet-title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  [data-ui] .fleet-meta {
+    color: var(--ink-muted);
+  }
+  [data-ui] .fleet-body {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem 1.25rem 1.25rem;
+  }
+  @media (min-width: 40rem) {
+    [data-ui] .fleet-body {
+      grid-template-columns: 11rem 1fr;
+      align-items: start;
+    }
+  }
+  [data-ui] .fleet-map {
+    width: 100%;
+    max-width: 14rem;
+    border-radius: 4px;
+  }
+  [data-ui] .fleet-floor {
+    fill: var(--surface);
+  }
+  [data-ui] .fleet-rack {
+    fill: var(--surface-2);
+  }
+  [data-ui] .fleet-bot {
+    fill: var(--ink);
+  }
+  [data-ui] .fleet-bot.is-warn {
+    fill: var(--bronze);
+  }
+  [data-ui] .fleet-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  [data-ui] .fleet-row {
+    display: grid;
+    grid-template-columns: 4rem 1fr auto;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--surface);
+  }
+  [data-ui] .fleet-name {
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+  [data-ui] .fleet-state {
+    color: var(--ink-muted);
+  }
+  [data-ui] .fleet-state.is-warn {
+    font-weight: 500;
+    color: var(--bronze);
+  }
+  [data-ui] .fleet-batt {
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-muted);
+  }
+</style>

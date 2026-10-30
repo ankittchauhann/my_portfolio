@@ -26,31 +26,43 @@
   font-display: swap;
 }
 
-/* Dark room: one tinted dark ground; .inverse flips a section to the light palette. */
+/* Two palettes; [data-theme] picks one, .inverse flips a section to the other. */
 :root {
-  --ground: #101114;
-  --surface: #1a1b1f;
-  --surface-2: #232429;
-  --ink: #ecebe8;
-  --ink-muted: #9b9a97;
-  --bronze: #a08672;
-  --bronze-ink: #101114;
+  --light-ground: #f1f0ec;
+  --light-surface: #e5e4df;
+  --light-surface-2: #d9d8d2;
+  --light-ink: #101114;
+  --light-ink-muted: #5a5955;
+  --light-bronze: #7a6250;
+  --light-bronze-ink: #f1f0ec;
+
+  --dark-ground: #101114;
+  --dark-surface: #1a1b1f;
+  --dark-surface-2: #232429;
+  --dark-ink: #ecebe8;
+  --dark-ink-muted: #9b9a97;
+  --dark-bronze: #a08672;
+  --dark-bronze-ink: #101114;
 
   --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
   --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
   --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
   --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
-  --step-display: clamp(3rem, 0.5rem + 10vw, 12.5rem);
+  --step-display: calc((100vw - 2 * var(--page-margin)) / 7.8);
 
   --page-margin: clamp(1.25rem, 0.9rem + 1.5vw, 2rem);
-  --section-gap: clamp(6rem, 3.5rem + 8vw, 12rem);
+  --section-gap: clamp(3.5rem, 2.25rem + 4vw, 6.5rem);
   --tap-min: 2.75rem;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-fast: 160ms;
   --duration-base: 320ms;
   --duration-slow: 640ms;
+  --radius: 0rem;
+}
 
+:root,
+.inverse {
   --background: var(--ground);
   --foreground: var(--ink);
   --card: var(--surface);
@@ -65,26 +77,70 @@
   --muted-foreground: var(--ink-muted);
   --accent: var(--surface-2);
   --accent-foreground: var(--ink);
-  --destructive: #e5675b;
+  --destructive: #c4473b;
   --border: var(--surface-2);
   --input: var(--surface-2);
   --ring: var(--bronze);
-  --radius: 0rem;
-  color-scheme: dark;
 }
 
 .inverse {
-  --ground: #ecebe8;
-  --surface: #e0dfdb;
-  --surface-2: #d3d2ce;
-  --ink: #101114;
-  --ink-muted: #5c5b58;
-  --bronze: #7a6250;
-  --bronze-ink: #ecebe8;
   color: var(--ink);
-  color-scheme: light;
-
   background-color: var(--ground);
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --step-display: calc((100vw - 2 * var(--page-margin)) / 12.3);
+  }
+}
+
+:root,
+[data-theme="dark"] .inverse {
+  --ground: var(--light-ground);
+  --surface: var(--light-surface);
+  --surface-2: var(--light-surface-2);
+  --ink: var(--light-ink);
+  --ink-muted: var(--light-ink-muted);
+  --bronze: var(--light-bronze);
+  --bronze-ink: var(--light-bronze-ink);
+  color-scheme: light;
+}
+
+[data-theme="dark"],
+[data-theme="light"] .inverse,
+:root:not([data-theme]) .inverse {
+  --ground: var(--dark-ground);
+  --surface: var(--dark-surface);
+  --surface-2: var(--dark-surface-2);
+  --ink: var(--dark-ink);
+  --ink-muted: var(--dark-ink-muted);
+  --bronze: var(--dark-bronze);
+  --bronze-ink: var(--dark-bronze-ink);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --ground: var(--dark-ground);
+    --surface: var(--dark-surface);
+    --surface-2: var(--dark-surface-2);
+    --ink: var(--dark-ink);
+    --ink-muted: var(--dark-ink-muted);
+    --bronze: var(--dark-bronze);
+    --bronze-ink: var(--dark-bronze-ink);
+    color-scheme: dark;
+  }
+
+  :root:not([data-theme]) .inverse {
+    --ground: var(--light-ground);
+    --surface: var(--light-surface);
+    --surface-2: var(--light-surface-2);
+    --ink: var(--light-ink);
+    --ink-muted: var(--light-ink-muted);
+    --bronze: var(--light-bronze);
+    --bronze-ink: var(--light-bronze-ink);
+    color-scheme: light;
+  }
 }
 
 @theme inline {
@@ -185,6 +241,48 @@
   svg {
     display: block;
     max-width: 100%;
+  }
+}
+
+.reveal-ready [data-reveal]:not(.is-in) {
+  opacity: 0;
+  transform: translateY(1.5rem);
+}
+
+.reveal-ready [data-reveal] {
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-name {
+      animation: name-settle linear both;
+      animation-range: 0 100svh;
+      animation-timeline: scroll(root block);
+      transform-origin: left bottom;
+    }
+
+    .footer-mark {
+      animation: mark-arrive linear both;
+      animation-range: entry 0% cover 45%;
+      animation-timeline: view();
+      transform-origin: left bottom;
+    }
+  }
+}
+
+@keyframes name-settle {
+  to {
+    scale: 0.94;
+  }
+}
+
+@keyframes mark-arrive {
+  from {
+    scale: 0.94;
   }
 }
 

@@ -1,0 +1,127 @@
+---
+const steps = ["Hardware", "Versions", "Packages", "Review", "Install"];
+const components = [
+  { from: "1.12.0", name: "Robot app", picked: true, to: "1.13.0" },
+  { from: "3.4.1", name: "Navigation", picked: true, to: "3.5.0" },
+  { from: "2.0.3", name: "Map server", picked: false, to: "2.0.3" },
+  { from: "0.9.2", name: "Safety config", picked: true, to: "1.0.0" },
+];
+---
+
+<div
+  aria-label="Sample screen from the update wizard: step two of five, choosing which software versions to install."
+  class="upd w-full max-w-[34rem]"
+  data-ui
+  role="img"
+>
+  <ol class="upd-steps">
+    {steps.map((step, i) => (
+      <li class:list={["upd-step", { "is-done": i < 1, "is-now": i === 1 }]}>
+        {step}
+      </li>
+    ))}
+  </ol>
+  <div class="upd-body">
+    <p class="upd-title">Choose software versions</p>
+    <ul class="upd-list">
+      {components.map((c) => (
+        <li class="upd-row">
+          <span class:list={["upd-check", { "is-on": c.picked }]} />
+          <span class="upd-name">{c.name}</span>
+          <span class="upd-ver">
+            {c.from === c.to ? `${c.from}, up to date` : `${c.from} → ${c.to}`}
+          </span>
+        </li>
+      ))}
+    </ul>
+    <div class="upd-foot">
+      <span class="upd-note">3 updates selected</span>
+      <span class="upd-next">Next: packages</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  [data-ui].upd {
+    font-size: 0.875rem;
+    color: var(--ink);
+    background: var(--ground);
+    border: 1px solid var(--surface-2);
+    border-radius: 6px;
+  }
+  [data-ui] .upd-steps {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    margin: 0;
+    overflow: hidden;
+    list-style: none;
+    border-bottom: 1px solid var(--surface-2);
+  }
+  [data-ui] .upd-step {
+    flex: 1;
+    padding: 0.375rem 0;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    text-align: center;
+    border-radius: 4px;
+  }
+  [data-ui] .upd-step.is-done {
+    color: var(--ink);
+  }
+  [data-ui] .upd-step.is-now {
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--surface);
+  }
+  [data-ui] .upd-body {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+  [data-ui] .upd-title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  [data-ui] .upd-list {
+    padding: 0;
+    margin: 0.75rem 0 0;
+    list-style: none;
+  }
+  [data-ui] .upd-row {
+    display: grid;
+    grid-template-columns: 1rem 1fr auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid var(--surface);
+  }
+  [data-ui] .upd-check {
+    width: 1rem;
+    height: 1rem;
+    border: 1.5px solid var(--ink-muted);
+    border-radius: 3px;
+  }
+  [data-ui] .upd-check.is-on {
+    background: var(--bronze);
+    border-color: var(--bronze);
+  }
+  [data-ui] .upd-ver {
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-muted);
+  }
+  [data-ui] .upd-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  [data-ui] .upd-note {
+    color: var(--ink-muted);
+  }
+  [data-ui] .upd-next {
+    padding: 0.5rem 0.875rem;
+    font-weight: 500;
+    color: var(--bronze-ink);
+    background: var(--bronze);
+    border-radius: 4px;
+  }
+</style>

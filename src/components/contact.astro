@@ -1,0 +1,72 @@
+---
+import { person } from "@/data/site";
+
+const [user, domain] = person.email.split("@");
+---
+
+<section
+  aria-labelledby="contact-title"
+  class="inverse px-page relative flex min-h-[86svh] flex-col justify-between pt-16 pb-[max(env(safe-area-inset-bottom),2rem)] lg:min-h-svh lg:pt-20"
+  id="contact"
+>
+  <h2
+    class="text-ink text-lead max-w-[22ch] font-sans leading-snug"
+    data-reveal
+    id="contact-title"
+  >
+    Building something real‑time? I'd like to hear about it.
+  </h2>
+
+  <a
+    class="contact-email text-ink hover:text-bronze focus-visible:text-bronze mt-16 block w-fit leading-[1.05] transition-colors duration-200"
+    data-reveal
+    href={`mailto:${person.email}`}
+  >
+    <span class="block lg:inline">{user}@</span
+    ><span class="block lg:inline">{domain}</span>
+  </a>
+
+  <div
+    class="text-small mt-16 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+    data-reveal
+  >
+    <div class="grid gap-3">
+      <a
+        class="min-h-tap text-ink hover:text-bronze inline-flex items-center sm:min-h-0"
+        href={person.phoneHref}
+      >
+        {person.phone}
+      </a>
+      <p class="text-ink-muted">{person.city}</p>
+    </div>
+    <div class="flex gap-6">
+      <a
+        class="min-h-tap text-ink hover:text-bronze inline-flex items-center sm:min-h-0"
+        href={person.github}
+        rel="me"
+      >
+        GitHub
+      </a>
+      <a
+        class="min-h-tap text-ink hover:text-bronze inline-flex items-center sm:min-h-0"
+        href={person.linkedin}
+        rel="me"
+      >
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-email {
+    font-size: calc((100vw - 2 * var(--page-margin)) / 6.95);
+    letter-spacing: -0.02em;
+  }
+
+  @media (min-width: 64rem) {
+    .contact-email {
+      font-size: calc((100vw - 2 * var(--page-margin)) / 11.5);
+    }
+  }
+</style>

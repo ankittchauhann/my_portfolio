@@ -1,0 +1,42 @@
+---
+import { stack } from "@/data/site";
+---
+
+<section aria-labelledby="stack-title" class="px-page py-section" id="stack">
+  <h2
+    class="font-heading text-head text-ink leading-none uppercase"
+    data-reveal
+    id="stack-title"
+  >
+    Stack
+  </h2>
+  <p class="text-body text-ink mt-6 max-w-[52ch]" data-reveal>
+    What I reach for, what it does in my work, and where it runs today.
+  </p>
+
+  {stack.map((group) => (
+    <div class="mt-16 lg:mt-20">
+      <h3 class="text-bronze text-lead" data-reveal>
+        {group.group}
+      </h3>
+      <ul class="mt-5">
+        {group.rows.map((row) => (
+          <li
+            class="grid grid-cols-[1fr_auto] gap-x-4 py-2.5 md:grid-cols-3 md:gap-x-6 md:py-1.5"
+            data-reveal
+          >
+            <span class="text-ink text-lead col-span-2 md:col-span-1">
+              {row.tool}
+            </span>
+            <span class="text-ink-muted text-small md:text-ink md:text-lead">
+              {row.job}
+            </span>
+            <span class="text-ink-muted text-small md:text-ink md:text-lead text-right md:text-left">
+              {row.where}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</section>

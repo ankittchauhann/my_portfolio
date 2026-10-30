@@ -1,0 +1,115 @@
+---
+import FleetFragment from "@/components/fragments/fleet-fragment.astro";
+import GitaFragment from "@/components/fragments/gita-fragment.astro";
+import RobotFragment from "@/components/fragments/robot-fragment.astro";
+import UpdateFragment from "@/components/fragments/update-fragment.astro";
+
+const panels = [
+  {
+    built: [
+      {
+        label: "Front end",
+        value: "React, TanStack Router and Query, Zustand, Leaflet",
+      },
+      { label: "Back end", value: "Hono, MongoDB, Redis, Better Auth" },
+      { label: "Real time", value: "Server-sent events, Docker, Turborepo" },
+    ],
+    fact: "100+ robots, one screen",
+    fragment: FleetFragment,
+    id: "fleet",
+    summary:
+      "The web app operators run a whole site from: every robot's position, status and battery, live, with analytics, missions and role-based access.",
+    title: "Fleet app",
+    years: "2024–now",
+  },
+  {
+    built: [
+      { label: "Front end", value: "React 19, Konva, React Flow, Three.js" },
+      { label: "Back end", value: "Hono with OpenAPI, MongoDB, Socket.io" },
+      { label: "AI", value: "LangChain, Ollama, ChromaDB" },
+    ],
+    fact: "Runs on the robot",
+    fragment: RobotFragment,
+    id: "robot",
+    summary:
+      "The touchscreen app on each robot: map and zone editors, mission setup, a 3D point-cloud view, and an offline assistant that answers from the robot's documentation.",
+    title: "Robot app",
+    years: "2026",
+  },
+  {
+    built: [
+      { label: "Front end", value: "React, TanStack Router and Form" },
+      { label: "Back end", value: "Hono, MongoDB, JWT auth with jose" },
+      { label: "Delivery", value: "Docker images, nginx" },
+    ],
+    fact: "Guided, on the robot",
+    fragment: UpdateFragment,
+    id: "updates",
+    summary:
+      "A step-by-step installer for robot software: check the hardware, pick versions, add packages, review, install. A small authenticated service does the deploying.",
+    title: "Update wizard",
+    years: "2026",
+  },
+  {
+    built: [
+      { label: "Front end", value: "React, TanStack Router, Zustand" },
+      { label: "Back end", value: "Vercel serverless functions" },
+      { label: "Testing", value: "Vitest, Testing Library" },
+    ],
+    fact: "Personal project",
+    fragment: GitaFragment,
+    id: "gita",
+    summary:
+      "A reader for all 18 chapters of the Bhagavad Gita: Sanskrit with transliteration and word meanings, Hindi and English translations, and read-aloud.",
+    title: "Gita reader",
+    years: "2025",
+  },
+];
+---
+
+<section aria-labelledby="work-title" class="px-page py-section" id="work">
+  <h2
+    class="font-heading text-head text-ink leading-none uppercase"
+    data-reveal
+    id="work-title"
+  >
+    Work
+  </h2>
+  <div class="mt-12 grid gap-20 lg:mt-16 lg:gap-28">
+    {panels.map((panel) => (
+      <article
+        aria-labelledby={`${panel.id}-title`}
+        class="grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-x-6"
+      >
+        <div
+          class="bg-surface flex justify-center px-4 py-10 sm:px-8 lg:order-2 lg:col-span-7 lg:px-12 lg:py-16"
+          data-reveal
+        >
+          <panel.fragment />
+        </div>
+
+        <div class="lg:order-1 lg:col-span-5" data-reveal>
+          <div class="text-ink-muted text-small flex justify-between gap-4 tabular-nums">
+            <span>{panel.years}</span>
+            <span>{panel.fact}</span>
+          </div>
+          <h3
+            class="font-heading text-ink text-lead mt-3 uppercase"
+            id={`${panel.id}-title`}
+          >
+            {panel.title}
+          </h3>
+          <p class="text-body text-ink mt-4 max-w-[52ch]">{panel.summary}</p>
+          <dl class="mt-6 grid gap-3">
+            {panel.built.map((item) => (
+              <div class="grid grid-cols-[6.5rem_1fr] gap-4">
+                <dt class="text-ink-muted text-small">{item.label}</dt>
+                <dd class="text-ink text-small">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

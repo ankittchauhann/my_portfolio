@@ -1,13 +1,13 @@
 # Ankit Singh Chouhan — Portfolio
 
-Personal portfolio site for a full-stack developer at ANSCER Robotics (real-time robot fleet platforms). Goal: a fast, content-first site that lands interviews — case studies over code dumps.
+Personal portfolio of a full-stack developer who works at a robotics company (ANSCER Robotics). Lead with the full-stack craft; robotics is the setting, not the identity. Goal: a fast, content-first site that lands interviews — case studies over code dumps.
 
 ## Stack
 
 - **Astro** (static output) with **React 19 islands** only where interactivity earns its JS
 - **TypeScript** strict, **Tailwind v4**, **shadcn/ui** for interactive primitives
 - **MDX** content collections for case studies (`src/content/work/`)
-- **three + React Three Fiber + drei** for the homepage 3D LiDAR hero only (see `PLAN.md`)
+- **three + React Three Fiber + drei** reserved for a 3D demo in the robot-app case study (see `PLAN.md`); the hero map is a plain 2D canvas
 - **Bun** as package manager and runner, **Biome via Ultracite** for lint/format
 - **lefthook** + **commitlint** (conventional commits), deployed to Vercel or Cloudflare Pages
 
@@ -25,7 +25,10 @@ Personal portfolio site for a full-stack developer at ANSCER Robotics (real-time
 - `src/components/` — `.astro` components (default) and `.tsx` islands (only when stateful)
 - `src/components/ui/` — shadcn primitives
 - `src/content/work/*.mdx` — case studies; schema in `src/content.config.ts`
-- `src/styles/global.css` — Tailwind entry and design tokens (dark ground + `.inverse` sections)
+- `src/styles/global.css` — Tailwind entry, light and dark palettes, `.inverse` sections, motion
+- `src/data/site.ts` — all page content (contact, nav, results, stack, roles)
+- `src/components/fragments/` — interface mockups shown as the work's pictures (`data-ui`, sample data only)
+- `src/scripts/` — `lidar-map.ts` (hero live map), `reveal.ts` (entrances)
 - `DESIGN.md` — the design system and why; read it before any UI work
 - `public/` — static assets; redacted screenshots go in `public/work/<slug>/`
 
@@ -33,7 +36,8 @@ Personal portfolio site for a full-stack developer at ANSCER Robotics (real-time
 
 - Default to `.astro` components. Reach for a React island only for real interactivity, and hydrate with the laziest directive that works (`client:visible` > `client:idle` > `client:load`).
 - **Mobile-first, always.** Build every component at 375px first, then scale up with `sm:`/`md:`/`lg:`. Tap targets ≥ 44px (`min-h-tap`), equal page margins (`px-page`), safe-area insets, no horizontal scroll at any width.
-- The site is dark by design (DESIGN.md); no theme toggle. Light sections use `.inverse`.
+- Light and dark themes via `[data-theme]` on `<html>`; every change must work in both (check with `?theme=light` / `?theme=dark`). `.inverse` flips a section to the other palette.
+- No photographs of any company's products or people, and no photo of the owner. Show work as HTML interface fragments with sample data.
 - Colors, type sizes, radius and spacing come from tokens in `global.css` (`bg-ground`, `text-ink`, `text-head`, `px-page`, …); no hardcoded hex or arbitrary sizes in markup.
 - Follow the taste skill's house rules (listed in DESIGN.md): no eyebrows, monospace, numbering, thin rules, gradients, shadows, glass or icon card rows.
 - File names are kebab-case (Ultracite rule), including `.astro` components.

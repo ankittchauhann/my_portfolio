@@ -1,0 +1,67 @@
+---
+import { nav, person } from "@/data/site";
+
+const year = new Date().getFullYear();
+const linkClass =
+  "inline-flex min-h-tap items-center text-ink-muted hover:text-ink sm:min-h-0";
+---
+
+<footer
+  class="inverse px-page pt-4 pb-[max(env(safe-area-inset-bottom),1.25rem)]"
+>
+  <div class="text-small grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-12">
+    <div class="lg:col-span-3">
+      <p class="text-ink">Pages</p>
+      <ul class="mt-2 grid sm:gap-1.5">
+        {nav.map((link) => (
+          <li>
+            <a class={linkClass} href={link.href}>
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="lg:col-span-3">
+      <p class="text-ink">Elsewhere</p>
+      <ul class="mt-2 grid sm:gap-1.5">
+        <li><a class={linkClass} href={person.github} rel="me">GitHub</a></li>
+        <li>
+          <a class={linkClass} href={person.linkedin} rel="me">LinkedIn</a>
+        </li>
+      </ul>
+    </div>
+    <div class="lg:col-span-3">
+      <p class="text-ink">Contact</p>
+      <ul class="mt-2 grid sm:gap-1.5">
+        <li><a class={linkClass} href={`mailto:${person.email}`}>Email</a></li>
+        <li><a class={linkClass} href={person.phoneHref}>{person.phone}</a></li>
+      </ul>
+    </div>
+    <div class="lg:col-span-3">
+      <p class="text-ink">This site</p>
+      <ul class="mt-2 grid sm:gap-1.5">
+        <li class="min-h-tap text-ink-muted flex items-center sm:min-h-0">
+          Astro, React, Tailwind
+        </li>
+        <li><a class={linkClass} href={person.repo}>Source on GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <p
+    aria-hidden="true"
+    class="footer-mark font-heading text-ink mt-[18svh] leading-[0.9] uppercase lg:mt-[14svh] lg:whitespace-nowrap"
+  >
+    <span class="block lg:inline">Ankit</span>{" "}
+    <span class="block lg:inline">Chouhan</span>
+  </p>
+  <p class="text-ink-muted text-small mt-5">© {year} {person.fullName}</p>
+</footer>
+
+<style>
+  .footer-mark {
+    font-size: var(--step-display);
+    letter-spacing: -0.02em;
+  }
+</style>

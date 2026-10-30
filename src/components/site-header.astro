@@ -1,0 +1,26 @@
+---
+import ThemeToggle from "@/components/theme-toggle.astro";
+import { nav, person } from "@/data/site";
+---
+
+<header
+  class="lg:px-page absolute inset-x-0 top-0 z-20 flex justify-end px-3 pt-[max(env(safe-area-inset-top),0.75rem)] lg:pt-6"
+>
+  <nav aria-label="Main" class="flex items-center gap-0.5 sm:gap-1.5">
+    {nav.map((link) => (
+      <a
+        class="min-h-tap bg-ground/80 text-ink text-small hover:text-bronze inline-flex items-center px-2.5 transition-colors duration-150 sm:px-3 lg:bg-transparent"
+        href={link.href}
+      >
+        {link.label}
+      </a>
+    ))}
+    <ThemeToggle />
+    <a
+      class="min-h-tap bg-bronze text-bronze-ink text-small hover:bg-ink hover:text-ground ml-1 inline-flex items-center px-4 font-medium transition-[background-color,transform] duration-150 active:translate-y-px"
+      href={`mailto:${person.email}`}
+    >
+      Email me
+    </a>
+  </nav>
+</header>

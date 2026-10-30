@@ -1,0 +1,81 @@
+---
+import { aboutFacts, roles, study } from "@/data/site";
+---
+
+<section
+  aria-labelledby="about-title"
+  class="bg-surface px-page py-section"
+  id="about"
+>
+  <div
+    class="grid gap-10 lg:grid-cols-[calc(34vw-var(--page-margin))_1fr] lg:gap-x-0 lg:gap-y-[7.5rem]"
+  >
+    <div class="lg:row-start-1" data-reveal>
+      <h2
+        class="font-heading text-head text-ink leading-none uppercase"
+        id="about-title"
+      >
+        About
+      </h2>
+      <dl class="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 lg:grid-cols-1">
+        {aboutFacts.map((fact) => (
+          <div>
+            <dt class="text-ink-muted text-small">{fact.label}</dt>
+            <dd class="text-ink text-small mt-1">{fact.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <p
+      class="text-ink text-lead max-w-[56ch] leading-[1.35] lg:row-start-1 lg:max-w-none lg:pr-[10vw]"
+      data-reveal
+    >
+      I'm Ankit Singh Chouhan, a full-stack developer at ANSCER Robotics in
+      Bangalore. I joined as an intern in 2023 and now build its web platform
+      end to end: React front ends, Hono and Node APIs, MongoDB and Redis, live
+      data streams, sign-in and roles, and the Docker and CI pipelines that ship
+      it all. I like software that stays fast and calm when a lot of live data
+      arrives at once.
+    </p>
+
+    <p class="text-ink text-small font-medium lg:row-start-2" data-reveal>
+      Record
+    </p>
+    <div
+      class="grid gap-10 sm:grid-cols-2 sm:gap-16 lg:row-start-2 lg:max-w-[40rem]"
+      data-reveal
+    >
+      <div>
+        <h3 class="text-ink-muted text-small font-sans leading-normal">
+          Roles
+        </h3>
+        <ul class="mt-3 grid gap-2.5">
+          {roles.map((role) => (
+            <li class="text-ink text-small flex justify-between gap-4">
+              <span>{role.name}</span>
+              <span class="text-ink-muted shrink-0 tabular-nums">
+                {role.year}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-ink-muted text-small font-sans leading-normal">
+          Study
+        </h3>
+        <ul class="mt-3 grid gap-2.5">
+          {study.map((item) => (
+            <li class="text-ink text-small flex justify-between gap-4">
+              <span>{item.name}</span>
+              <span class="text-ink-muted shrink-0 tabular-nums">
+                {item.year}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

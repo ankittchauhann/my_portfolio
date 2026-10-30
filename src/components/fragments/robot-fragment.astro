@@ -1,0 +1,90 @@
+<div
+  aria-label="Sample screen from the robot app's assistant: an operator asks why the robot stopped, and the assistant answers from the robot's documentation."
+  class="bot w-full max-w-[34rem]"
+  data-ui
+  role="img"
+>
+  <div class="bot-head">
+    <p class="bot-title">Assistant</p>
+    <p class="bot-meta">Runs on the robot, offline</p>
+  </div>
+  <div class="bot-body">
+    <p class="bot-q">Why did the robot stop before the dock?</p>
+    <div class="bot-a">
+      <p>
+        It paused because it could not see the dock marker within 2 m. Check
+        that the marker is clean and in view, then press Resume.
+      </p>
+      <p class="bot-src">From: Docking guide, section 3</p>
+    </div>
+    <div class="bot-input">
+      <span>Ask about this robot</span>
+      <span class="bot-send">Send</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  [data-ui].bot {
+    font-size: 0.875rem;
+    color: var(--ink);
+    background: var(--ground);
+    border: 1px solid var(--surface-2);
+    border-radius: 6px;
+  }
+  [data-ui] .bot-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    justify-content: space-between;
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--surface-2);
+  }
+  [data-ui] .bot-title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  [data-ui] .bot-meta {
+    color: var(--ink-muted);
+  }
+  [data-ui] .bot-body {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem 1.25rem;
+  }
+  [data-ui] .bot-q {
+    justify-self: end;
+    max-width: 85%;
+    padding: 0.625rem 0.875rem;
+    background: var(--surface-2);
+    border-radius: 6px;
+  }
+  [data-ui] .bot-a {
+    max-width: 92%;
+    padding: 0.75rem 0.875rem;
+    line-height: 1.5;
+    background: var(--surface);
+    border-radius: 6px;
+  }
+  [data-ui] .bot-src {
+    margin-top: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+  [data-ui] .bot-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.375rem 0.375rem 0.375rem 0.875rem;
+    color: var(--ink-muted);
+    border: 1px solid var(--surface-2);
+    border-radius: 6px;
+  }
+  [data-ui] .bot-send {
+    padding: 0.375rem 0.75rem;
+    font-weight: 500;
+    color: var(--bronze-ink);
+    background: var(--bronze);
+    border-radius: 4px;
+  }
+</style>

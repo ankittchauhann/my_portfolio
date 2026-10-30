@@ -11,11 +11,33 @@
   "overrides": [
     {
       "includes": ["src/lib/utils.ts"],
-      "linter": { "rules": { "performance": { "noBarrelFile": "off" } } }
+      "linter": {
+        "rules": {
+          "performance": {
+            "noBarrelFile": "off"
+          }
+        }
+      }
     },
     {
       "includes": ["src/styles/global.css"],
-      "linter": { "rules": { "suspicious": { "useBaseline": "off" } } }
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "useBaseline": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noUnknownAttribute": "off"
+          }
+        }
+      }
     }
   ]
 }
