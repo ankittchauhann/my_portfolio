@@ -1,0 +1,67 @@
+---
+import "@/styles/global.css";
+
+interface Props {
+  description: string;
+  image?: string;
+  title: string;
+}
+
+const { title, description, image = "/og.png" } = Astro.props;
+const siteName = "Ankit Singh Chouhan";
+const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site)
+  : undefined;
+const ogImage = Astro.site ? new URL(image, Astro.site) : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+      name="viewport"
+    >
+    <meta content="#101114" name="theme-color">
+    <title>{fullTitle}</title>
+    <meta content={description} name="description">
+    {canonical && <link href={canonical} rel="canonical" />}
+
+    <meta content="website" property="og:type">
+    <meta content={siteName} property="og:site_name">
+    <meta content={fullTitle} property="og:title">
+    <meta content={description} property="og:description">
+    {canonical && <meta content={canonical} property="og:url" />}
+    {ogImage && <meta content={ogImage} property="og:image" />}
+    <meta content="summary_large_image" name="twitter:card">
+
+    <link href="/favicon.svg" rel="icon" type="image/svg+xml">
+    {Astro.site && <link href="/sitemap-index.xml" rel="sitemap">}
+
+    <link
+      as="font"
+      crossorigin
+      href="/fonts/switzer-400.woff2"
+      rel="preload"
+      type="font/woff2"
+    >
+    <link
+      as="font"
+      crossorigin
+      href="/fonts/panchang-500.woff2"
+      rel="preload"
+      type="font/woff2"
+    >
+  </head>
+  <body>
+    <a
+      class="focus:bg-bronze focus:text-bronze-ink sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-3"
+      href="#main"
+    >
+      Skip to content
+    </a>
+    <slot />
+  </body>
+</html>

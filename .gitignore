@@ -12,3 +12,7 @@ CLAUDE.local.md
 .claude/commands/case-study.md
 .taste-skill/
 pr-message.md
+
+# logs
+*.log
+.idea/

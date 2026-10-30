@@ -14,8 +14,8 @@ You QA a static Astro portfolio in a real browser. You report; you never edit pr
 
 ## Checks per page
 
-- **Viewports:** 375×812, 768×1024, 1440×900. Screenshot each. Flag horizontal scroll (`document.documentElement.scrollWidth > innerWidth`), overlapping or clipped text, tap targets under 44px on mobile.
-- **Themes:** light and dark — read the layout to find the theme attribute/class, then toggle it with `browser_evaluate`. Flag unreadable contrast and elements that vanish in one theme.
+- **Viewports:** 375×812 first (mobile-first), then 768×1024 and 1440×900. Screenshot each. Flag horizontal scroll (`document.documentElement.scrollWidth > innerWidth`), overlapping or clipped text, tap targets under 44px on mobile.
+- **Ground:** the site is dark by design with `.inverse` light sections (see DESIGN.md). Flag unreadable contrast on either ground and anything that vanishes against it.
 - **Console:** any error or hydration warning.
 - **Keyboard:** Tab through the page; focus must be visible and in a logical order; the skip link and mobile menu must work.
 - **Links and images:** every internal link resolves (no 404), every image loads and has `alt`.

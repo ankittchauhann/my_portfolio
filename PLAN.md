@@ -12,6 +12,11 @@ A fast, content-first portfolio that shows a full-stack developer who builds rea
 - Bun, Biome via Ultracite, lefthook + commitlint
 - Deploy: Vercel or Cloudflare Pages
 
+## Approach
+
+- **Mobile-first:** every component is built at 375px first and scaled up; everything is responsive, the 3D hero included.
+- **Design system:** the taste skill's *dark-room* direction — see `DESIGN.md`.
+
 ## Pages
 
 - **Home** — 3D LiDAR hero, one-line pitch, featured work, experience timeline, skills, contact
@@ -31,9 +36,9 @@ A robot navigates a warehouse made of points; its scan sweeps and reveals shelve
 
 ## Phases
 
-1. **Scaffold** — Astro + React + Tailwind + MDX + sitemap, shadcn, Ultracite, lefthook/commitlint, git init
-2. **Design system** — pick a direction (`design-taste-frontend`, `design-md`), write tokens to `global.css` (light + dark) and `DESIGN.md`
-3. **Base layout** — head/SEO component, nav, footer, theme toggle, skip link
+1. **Scaffold** — Astro + React + Tailwind + MDX + sitemap, shadcn, Ultracite, lefthook/commitlint, git init ✅
+2. **Design system** — direction dealt (dark-room), tokens in `global.css`, `DESIGN.md` ✅
+3. **Base layout** — head/SEO and skip link ✅; nav and footer next
 4. **Static home** — hero with poster image in place of 3D, featured work, timeline, skills, contact
 5. **Case studies** — content schema, FMS first, then the rest (`/case-study <project>`); redact screenshots
 6. **3D hero** — LiDAR scene island replacing the poster, with fallbacks and performance budget

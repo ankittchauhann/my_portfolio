@@ -40,7 +40,9 @@ Review what was pointed at; with no target, review the code most recently change
 
 **Design system**
 - Hardcoded hex, `text-[#...]`, or inline `style={{ color }}` where a token in `global.css` exists — resolve the value against `global.css` before judging
-- Styling that only works in one theme; ad-hoc spacing/radius off the scale; hand-built components where a shadcn primitive exists
+- Desktop-first styling (base classes for desktop, overridden down for mobile), tap targets under 44px, horizontal overflow at 375px
+- Text unreadable on `.inverse` sections; ad-hoc spacing/radius off the scale; hand-built components where a shadcn primitive exists
+- Breaks of the house rules in DESIGN.md (eyebrows, monospace, numbering, thin rules, gradients, shadows, glass, icon card rows)
 
 **Readability and correctness**
 - Names that don't say what the thing is; duplicated markup that should be a component

@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@/layouts/base-layout.astro";
+---
+
+<BaseLayout
+  description="Full-stack developer building the real-time software that runs robot fleets: fleet management, on-robot control and 3D views."
+  title="Ankit Singh Chouhan"
+>
+  <main
+    class="px-page flex min-h-svh flex-col justify-end gap-6 pt-[max(env(safe-area-inset-top),1.5rem)] pb-[max(env(safe-area-inset-bottom),2.5rem)] md:gap-8"
+    id="main"
+  >
+    <h1 class="text-head max-w-[14ch] uppercase">Ankit Singh Chouhan</h1>
+    <p class="text-lead text-ink max-w-[34ch]">
+      I build the real-time software that runs robot fleets: fleet dashboards,
+      on-robot control and the 3D views operators trust.
+    </p>
+    <a
+      class="min-h-tap bg-bronze text-body text-bronze-ink hover:bg-bronze/85 inline-flex w-fit items-center px-5 font-medium transition-colors duration-150"
+      href="mailto:ankitt335407@gmail.com"
+    >
+      Write to me
+    </a>
+  </main>
+</BaseLayout>

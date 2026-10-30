@@ -1,0 +1,20 @@
+pre-commit:
+  jobs:
+    - run: bunx --bun ultracite fix {staged_files}
+      glob:
+        - "*.js"
+        - "*.jsx"
+        - "*.mjs"
+        - "*.ts"
+        - "*.tsx"
+        - "*.json"
+        - "*.jsonc"
+        - "*.css"
+        - "*.astro"
+      exclude:
+        - ".claude/skills/**"
+      stage_fixed: true
+
+commit-msg:
+  jobs:
+    - run: bunx --bun commitlint --edit {1}
