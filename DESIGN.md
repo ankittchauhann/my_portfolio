@@ -1,7 +1,7 @@
 ---
 version: 2
 name: dark-room
-description: "A calm, type-led portfolio for a full-stack developer. One flat ground per theme, wide extended display type (Panchang) for the name and headings, a neutral grotesk (Switzer) for reading, one bronze accent. Work is shown as real interface fragments built in HTML, never photographs. A live real-time map in the hero demonstrates front-end and real-time skill. Square corners, no lines, no shadows. Light and dark themes."
+description: "A calm, type-led portfolio for a full-stack developer. One flat ground per theme, one type family (Archivo): set wide for the name and headings, at a comfortable width for reading, one bronze accent. Work is shown as real interface fragments built in HTML, never photographs. A live real-time map in the hero demonstrates front-end and real-time skill. Square corners, no lines, no shadows. Light and dark themes."
 
 colors:
   dark:
@@ -23,21 +23,23 @@ colors:
 
 typography:
   display:
-    fontFamily: Panchang
-    fontWeight: 500
-    letterSpacing: -0.02em
+    fontFamily: Archivo
+    fontWeight: 600
+    fontStretch: 125%
+    letterSpacing: -0.015em (name -0.02em)
     lineHeight: 0.9
     textTransform: uppercase
   text:
-    fontFamily: Switzer
+    fontFamily: Archivo
     fontWeight: [400, 500]
+    fontStretch: 106%
     lineHeight: 1.55
   steps:
     small: "clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem)"
     body: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)"
     lead: "clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem)"
     head: "clamp(2rem, 1.3rem + 3.2vw, 4rem)"
-    display: "fitted: (100vw - 2 × margin) / 7.8 on phones (two lines), / 12.3 from 1024px (one line)"
+    display: "fitted: (100vw - 2 × margin) / 6.7 on phones (two lines), / 10.8 from 1024px (one line)"
 
 spacing:
   page-margin: "clamp(1.25rem, 0.9rem + 1.5vw, 2rem)"
@@ -85,10 +87,12 @@ Award-site research (Awwwards 2025–26 portfolio winners, the skill's 247-site 
 
 ## Type
 
-- **Panchang 500**: the name and section headings, uppercase, tracking −0.02em. Very wide, so headings stay one to three words.
-- **Switzer 400/500**: everything else. Running text at 17–19px in full ink; `ink-muted` only for labels and secondary notes.
+- **One family, Archivo**, using its width axis instead of a second typeface.
+- **Name and section headings:** weight 600, width 125%, uppercase, tracking −0.015em (the name −0.02em). Wide, so headings stay one to three words.
+- **Everything else:** weight 400/500, width 106% (slightly opened up for reading). Running text at 17–19px in full ink; `ink-muted` only for labels and secondary notes.
+- Replaced Panchang + Switzer on 2026-10-30: Panchang was hard to read at heading sizes, and two unrelated families read as two voices.
 - Five steps: small, body, lead, head, display. The display step is fitted to the viewport so the name runs margin to margin.
-- Self-hosted woff2 in `public/fonts/` (Fontshare, ITF Free Font License).
+- One self-hosted variable woff2, `public/fonts/archivo-var.woff2` (SIL OFL), trimmed with fontTools to width 100–125% and weight 400–600: about 43 KB, preloaded.
 
 ## Layout (mobile-first)
 
@@ -106,9 +110,13 @@ Award-site research (Awwwards 2025–26 portfolio winners, the skill's 247-site 
 6. **Contact** (inverse): email set as display type fitted to the width, phone, city, GitHub, LinkedIn.
 7. **Footer** (inverse): link columns, the name full width, copyright.
 
+## Case studies
+
+`/work/<slug>`: title, summary and a facts list (years, role, what was built) at the top; prose limited to 68ch and indented a quarter on desktop; `.case-wide` blocks for interface fragments, architecture diagrams (`architecture-diagram.astro`) and demos at full width. No eyebrow above the title; every block enters with the same reveal as the home page.
+
 ## The live map
 
-`src/scripts/lidar-map.ts`: a simulated robot drives a procedurally generated warehouse and builds its map from LiDAR rays. Tap or press Enter to send it somewhere. It's about 5 KB, paused off-screen and in hidden tabs, capped at 2× pixel ratio, and drawn as one static frame under reduced motion. The 3D version is planned for the robot-app case study, not the hero.
+`src/scripts/lidar-map.ts`: a simulated robot drives a procedurally generated warehouse and builds its map from LiDAR rays. Tap or press Enter to send it somewhere. It's about 5 KB, paused off-screen and in hidden tabs, capped at 2× pixel ratio, and drawn as one static frame under reduced motion. A 3D version lives in the robot-app case study: plain three.js (`src/scripts/point-cloud/scene.ts`), a warehouse point cloud coloured by height, a live LiDAR scan ring, and follow / top / free cameras. It downloads only when scrolled into view, pauses off-screen, holds still under reduced motion, and explains itself when WebGL is off.
 
 ## Motion
 

@@ -34,7 +34,7 @@ reproduced or reused without written permission.
 
 3. THIRD-PARTY MATERIAL
 
-Fonts in public/fonts/ (Panchang, Switzer) are by the Indian Type Foundry,
-distributed through Fontshare under the ITF Free Font License. Vendored
-skills under .claude/skills/ keep their own licenses, listed in
+The font in public/fonts/ (Archivo, by Omnibus-Type) is licensed under the
+SIL Open Font License 1.1, trimmed to the widths and weights the site uses.
+Vendored skills under .claude/skills/ keep their own licenses, listed in
 .claude/skills-sources/SOURCES.md.

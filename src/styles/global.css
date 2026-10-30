@@ -3,25 +3,10 @@
 @import "shadcn/tailwind.css";
 
 @font-face {
-  font-family: "Panchang";
-  src: url("/fonts/panchang-500.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Switzer";
-  src: url("/fonts/switzer-400.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Switzer";
-  src: url("/fonts/switzer-500.woff2") format("woff2");
-  font-weight: 500;
+  font-family: "Archivo";
+  src: url("/fonts/archivo-var.woff2") format("woff2");
+  font-weight: 400 600;
+  font-stretch: 100% 125%;
   font-style: normal;
   font-display: swap;
 }
@@ -48,7 +33,7 @@
   --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
   --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
   --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
-  --step-display: calc((100vw - 2 * var(--page-margin)) / 7.8);
+  --step-display: calc((100vw - 2 * var(--page-margin)) / 6.7);
 
   --page-margin: clamp(1.25rem, 0.9rem + 1.5vw, 2rem);
   --section-gap: clamp(3.5rem, 2.25rem + 4vw, 6.5rem);
@@ -90,7 +75,7 @@
 
 @media (min-width: 64rem) {
   :root {
-    --step-display: calc((100vw - 2 * var(--page-margin)) / 12.3);
+    --step-display: calc((100vw - 2 * var(--page-margin)) / 10.8);
   }
 }
 
@@ -144,8 +129,8 @@
 }
 
 @theme inline {
-  --font-sans: "Switzer", ui-sans-serif, system-ui, sans-serif;
-  --font-heading: "Panchang", "Switzer", ui-sans-serif, sans-serif;
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Archivo", ui-sans-serif, system-ui, sans-serif;
 
   --color-ground: var(--ground);
   --color-surface: var(--surface);
@@ -207,18 +192,25 @@
     padding-left: env(safe-area-inset-left);
     overflow-x: clip;
     font-size: var(--step-body);
+    font-stretch: 106%;
     line-height: 1.55;
     @apply bg-background font-sans text-foreground antialiased;
   }
 
   h1,
   h2,
-  h3 {
+  h3,
+  .font-heading {
     font-family: var(--font-heading);
-    font-weight: 500;
+    font-weight: 600;
+    font-stretch: 125%;
     line-height: 1;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
     text-wrap: balance;
+  }
+
+  .font-sans {
+    font-stretch: 106%;
   }
 
   p {

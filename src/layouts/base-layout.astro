@@ -67,19 +67,12 @@ const ogImage = Astro.site && image ? new URL(image, Astro.site) : undefined;
     <meta content="summary_large_image" name="twitter:card">
 
     <link href="/favicon.svg" rel="icon" type="image/svg+xml">
+    <link href="/site.webmanifest" rel="manifest">
     {Astro.site && <link href="/sitemap-index.xml" rel="sitemap">}
-
     <link
       as="font"
       crossorigin
-      href="/fonts/switzer-400.woff2"
-      rel="preload"
-      type="font/woff2"
-    >
-    <link
-      as="font"
-      crossorigin
-      href="/fonts/panchang-500.woff2"
+      href="/fonts/archivo-var.woff2"
       rel="preload"
       type="font/woff2"
     >
