@@ -82,7 +82,7 @@ Award-site research (Awwwards 2025–26 portfolio winners, the skill's 247-site 
 
 ## Colour
 
-- One ground, one ink, one accent per theme. Bronze appears on the primary action, the robot on the map, a few markers inside fragments, and the stack group labels.
+- One ground, one ink, one accent per theme. Bronze appears on the primary action, the robot on the map, and a few markers inside fragments.
 - Depth comes from a step in surface tone (`ground` → `surface` → `surface-2`), never from lines, shadows or glows.
 
 ## Type
@@ -104,11 +104,10 @@ Award-site research (Awwwards 2025–26 portfolio winners, the skill's 247-site 
 
 1. **Hero:** live map (left 47% on desktop, top half on phones), the name fitted to the full width along the bottom, one line on what the work is, **Email me**.
 2. **Work:** four projects. Desktop: text left (years, title, fact, summary, what was built on front end, back end and beyond), interface fragment right on a surface stage. Phone: fragment above text.
-3. **Stack:** one-size line-up, grouped Front end / Back end / Real time / Delivery: tool, what it does in the work, where it runs.
-4. **Results:** five figures, engineering wins first.
-5. **About:** heading and facts in a left column, paragraph from 34% of the width; roles and study below.
-6. **Contact** (inverse): email set as display type fitted to the width, phone, city, GitHub, LinkedIn.
-7. **Footer** (inverse): link columns, the name full width, copyright.
+3. **Results:** five figures, engineering wins first.
+4. **About:** heading and facts in a left column, paragraph from 34% of the width; roles and study below.
+5. **Contact** (inverse): email set as display type fitted to the width, phone, city, GitHub, LinkedIn.
+6. **Footer** (inverse): link columns, the name full width, copyright.
 
 ## Case studies
 

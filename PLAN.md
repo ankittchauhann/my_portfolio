@@ -20,7 +20,7 @@ A fast, content-first portfolio that shows a full-stack developer who builds rea
 
 ## Pages
 
-- **Home** — live map hero, work (fleet app, robot app, update wizard, Gita reader), stack, results, about, contact
+- **Home** — live map hero, work (fleet app, robot app, update wizard, Gita reader), results, about, contact. The standalone Stack section was removed on 2026-10-30: each project lists its tools and the About paragraph names the core stack
 - **Work** — `/work/<slug>` case studies: Fleet Management System, on-robot control UI (incl. local RAG assistant), OTA software updates, robot provisioning, Bhagwat-Gita
 - **Resume** — on hold
 

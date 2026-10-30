@@ -27,7 +27,7 @@ Personal portfolio of a full-stack developer who works at a robotics company (AN
 - `src/components/ui/` — shadcn primitives
 - `src/content/work/*.mdx` — case studies; schema in `src/content.config.ts`
 - `src/styles/global.css` — Tailwind entry, light and dark palettes, `.inverse` sections, motion
-- `src/data/site.ts` — all page content (contact, nav, results, stack, roles)
+- `src/data/site.ts` — all page content (contact, nav, results, career)
 - `src/components/fragments/` — interface mockups shown as the work's pictures (`data-ui`, sample data only)
 - `src/scripts/` — `lidar-map.ts` (hero live map), `reveal.ts` (entrances), `point-cloud/scene.ts` (3D demo)
 - `src/components/demos/` — interactive demos embedded in case studies

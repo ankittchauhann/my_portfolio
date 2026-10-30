@@ -12,7 +12,6 @@ export const person = {
 
 export const nav = [
   { href: "#work", label: "Work" },
-  { href: "#stack", label: "Stack" },
   { href: "#about", label: "About" },
 ];
 
@@ -54,91 +53,3 @@ export const career = {
     { dates: "Mar 2023 – Jul 2023", title: "Web Developer Intern" },
   ],
 };
-
-export const stack = [
-  {
-    group: "Front end",
-    rows: [
-      {
-        job: "Every interface I ship",
-        tool: "React, TypeScript",
-        where: "All projects",
-      },
-      {
-        job: "Routing and server state",
-        tool: "TanStack Router, Query",
-        where: "Fleet app, robot app",
-      },
-      { job: "Fast-changing live state", tool: "Zustand", where: "Robot app" },
-      {
-        job: "Shared design system",
-        tool: "Tailwind, shadcn/ui",
-        where: "All projects",
-      },
-      {
-        job: "Maps and map editing",
-        tool: "Leaflet, Konva",
-        where: "Fleet app, robot app",
-      },
-      { job: "3D point-cloud view", tool: "Three.js", where: "Robot app" },
-    ],
-  },
-  {
-    group: "Back end",
-    rows: [
-      {
-        job: "Typed REST APIs, OpenAPI",
-        tool: "Hono on Bun and Node",
-        where: "Fleet app, robot app",
-      },
-      {
-        job: "Indexes, aggregations",
-        tool: "MongoDB, Mongoose",
-        where: "Fleet app",
-      },
-      { job: "Caching, pub/sub", tool: "Redis", where: "Fleet app" },
-      {
-        job: "OAuth2, role-based access",
-        tool: "Better Auth",
-        where: "Fleet app, robot app",
-      },
-      {
-        job: "Local AI assistant",
-        tool: "LangChain, Ollama",
-        where: "Robot app",
-      },
-    ],
-  },
-  {
-    group: "Real time",
-    rows: [
-      { job: "Live telemetry", tool: "Server-sent events", where: "Fleet app" },
-      {
-        job: "Two-way control",
-        tool: "Socket.io, WebSockets",
-        where: "Robot app",
-      },
-      {
-        job: "Bridge to robot software",
-        tool: "roslib, rosbridge",
-        where: "Fleet app, robot app",
-      },
-    ],
-  },
-  {
-    group: "Delivery",
-    rows: [
-      {
-        job: "On-device and on-site deploys",
-        tool: "Docker",
-        where: "All projects",
-      },
-      {
-        job: "Monorepos, build caching",
-        tool: "Turborepo, Bun",
-        where: "Fleet app, robot app",
-      },
-      { job: "CI and releases", tool: "GitHub Actions", where: "All projects" },
-    ],
-  },
-];
