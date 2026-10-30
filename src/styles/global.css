@@ -256,24 +256,11 @@
       animation-timeline: scroll(root block);
       transform-origin: left bottom;
     }
-
-    .footer-mark {
-      animation: mark-arrive linear both;
-      animation-range: entry 0% cover 45%;
-      animation-timeline: view();
-      transform-origin: left bottom;
-    }
   }
 }
 
 @keyframes name-settle {
   to {
-    scale: 0.94;
-  }
-}
-
-@keyframes mark-arrive {
-  from {
     scale: 0.94;
   }
 }

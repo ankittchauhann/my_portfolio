@@ -2,15 +2,17 @@
 import { person } from "@/data/site";
 
 const [user, domain] = person.email.split("@");
+const linkClass =
+  "min-h-tap text-ink hover:text-bronze inline-flex items-center transition-colors duration-150 sm:min-h-0";
 ---
 
 <section
   aria-labelledby="contact-title"
-  class="inverse px-page relative flex min-h-[86svh] flex-col justify-between pt-16 pb-[max(env(safe-area-inset-bottom),2rem)] lg:min-h-svh lg:pt-20"
+  class="inverse px-page pt-section"
   id="contact"
 >
   <h2
-    class="text-ink text-lead max-w-[22ch] font-sans leading-snug"
+    class="text-ink text-lead max-w-[30ch] font-sans leading-snug font-medium"
     data-reveal
     id="contact-title"
   >
@@ -18,7 +20,7 @@ const [user, domain] = person.email.split("@");
   </h2>
 
   <a
-    class="contact-email text-ink hover:text-bronze focus-visible:text-bronze mt-16 block w-fit leading-[1.05] transition-colors duration-200"
+    class="contact-email text-ink hover:text-bronze focus-visible:text-bronze mt-6 block w-fit leading-[1.05] transition-colors duration-200 lg:mt-8"
     data-reveal
     href={`mailto:${person.email}`}
   >
@@ -27,34 +29,17 @@ const [user, domain] = person.email.split("@");
   </a>
 
   <div
-    class="text-small mt-16 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+    class="text-small mt-8 flex flex-col gap-x-6 gap-y-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between lg:mt-10"
     data-reveal
   >
-    <div class="grid gap-3">
-      <a
-        class="min-h-tap text-ink hover:text-bronze inline-flex items-center sm:min-h-0"
-        href={person.phoneHref}
-      >
-        {person.phone}
-      </a>
-      <p class="text-ink-muted">{person.city}</p>
-    </div>
-    <div class="flex gap-6">
-      <a
-        class="min-h-tap text-ink hover:text-bronze inline-flex items-center sm:min-h-0"
-        href={person.github}
-        rel="me"
-      >
-        GitHub
-      </a>
-      <a
-        class="min-h-tap text-ink hover:text-bronze inline-flex items-center sm:min-h-0"
-        href={person.linkedin}
-        rel="me"
-      >
-        LinkedIn
-      </a>
-    </div>
+    <p class="flex flex-wrap items-baseline gap-x-6">
+      <a class={linkClass} href={person.phoneHref}>{person.phone}</a>
+      <span class="text-ink-muted">{person.city}</span>
+    </p>
+    <p class="flex gap-6">
+      <a class={linkClass} href={person.github} rel="me">GitHub</a>
+      <a class={linkClass} href={person.linkedin} rel="me">LinkedIn</a>
+    </p>
   </div>
 </section>
 
